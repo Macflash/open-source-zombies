@@ -64,8 +64,7 @@ abstract class GenericGun implements Gun {
 
   abstract readonly reloadTime: number;
   abstract readonly shootTime: number;
-
-  public ammo = 200;
+  abstract ammo: number;
   public clip = 0;
   public isReloading = false;
 
@@ -113,10 +112,11 @@ abstract class GenericGun implements Gun {
   }
 }
 
-export class AR extends GenericGun {
-  readonly clipSize = 30;
-  readonly reloadTime = 200;
-  readonly shootTime = 10;
+export class Pistol extends GenericGun {
+  readonly clipSize = 9;
+  readonly reloadTime = 100;
+  readonly shootTime = 25;
+  readonly ammo = 100;
 
   constructor() {
     super();
