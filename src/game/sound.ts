@@ -1,3 +1,6 @@
+import gameover from "../sound/gameover.wav";
+import nuhuh from "../sound/nuhuh.wav";
+import blam from "../sound/blam.wav";
 import bang from "../sound/bang.wav";
 import reload from "../sound/reload.wav";
 import ouch from "../sound/ouch.wav";
@@ -15,6 +18,9 @@ function play(src: string) {
 }
 
 export class Sound {
+  static gameover = () => play(gameover);
+  static nuhuh = () => play(nuhuh);
+  static blam = () => play(blam);
   static bang = () => play(bang);
   static reload = () => play(reload);
   static ouch = () => play(ouch);

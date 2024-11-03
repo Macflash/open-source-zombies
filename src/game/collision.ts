@@ -19,6 +19,23 @@ export function intersectBox(a: Box, b: Box) {
 }
 
 export function intersectSquare(a: Square, b: Square) {
+  if (a.pos.x + a.size < b.pos.x) return false;
+  if (a.pos.x > b.pos.x + b.size) return false;
+  if (b.pos.x + b.size < a.pos.x) return false;
+  if (b.pos.x > a.pos.x + a.size) return false;
+
+  if (a.pos.y + a.size < b.pos.y) return false;
+  if (a.pos.y > b.pos.y + b.size) return false;
+  if (b.pos.y + b.size < a.pos.y) return false;
+  if (b.pos.y > a.pos.y + a.size) return false;
+
+  return true;
+}
+
+// idk if this is even slower or not...
+export function intersectSquareSLOW(a: Square, b: Square) {
+  // xmax < bmin
+  if (a.pos.x + a.size < b.pos.x) return false;
   // Exit with no intersection if found separated along an axis
   const xgap = Math.abs(a.pos.x - b.pos.x) - a.size * 0.5 - b.size * 0.5;
   if (xgap > 0) return false;

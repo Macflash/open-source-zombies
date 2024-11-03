@@ -1,3 +1,4 @@
+import { Sound } from "./sound";
 import { World } from "./world";
 
 export class Game {
@@ -43,7 +44,10 @@ export class Game {
     this.world.doStep();
     this.spawner.doStep(this.world);
     this.renderFunction(++this.renderbit);
-    if (this.isGameOver()) this.pause();
+    if (this.isGameOver()) {
+      Sound.gameover();
+      this.pause();
+    }
   }
 }
 

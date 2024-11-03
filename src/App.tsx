@@ -54,6 +54,14 @@ function App() {
           ? null
           : `YOU DIED. Score: ${world.playerScore}`}
 
+        {/* Player bullets */}
+        {world.playerBullets.map((b) => (
+          <EntityElement {...b} key={b.key} />
+        ))}
+
+        {/* Player */}
+        <EntityElement {...world.player} />
+
         {/* Zombies */}
         {world.zombies.map((z) => (
           <EntityElement
@@ -62,14 +70,6 @@ function App() {
             key={z.key} // dumb you have to do this.
           />
         ))}
-
-        {/* Player bullets */}
-        {world.playerBullets.map((b) => (
-          <EntityElement {...b} key={b.key} />
-        ))}
-
-        {/* Player */}
-        <EntityElement {...world.player} />
       </div>
       <div>
         {world.player.health} HP {world.activeGun.clip} / {world.activeGun.ammo}{" "}

@@ -23,7 +23,7 @@ export class World {
   public playerScore = 0;
   public playerBullets: Bullet[] = [];
 
-  public activeGun: Gun = new AR();
+  public activeGun: Gun = new Shotgun();
 
   public zombies: Zombie[] = [];
   public buildings: Building[] = [];
