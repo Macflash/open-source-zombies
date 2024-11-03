@@ -28,6 +28,8 @@ function App() {
         left: 0,
         bottom: 0,
         right: 0,
+        // This doens't work with the aiming right now.
+        // likely need to subtract the clientX/Y of the relative div.
         // display: "flex",
         // flexDirection: "column",
         // alignItems: "center",

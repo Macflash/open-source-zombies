@@ -1,7 +1,7 @@
 import { Bullet } from "./bullet";
 import { KeyboardListener } from "./keyboard";
 import { Player } from "./player";
-import { Gun, Shotgun } from "./shotgun";
+import { AR, Gun, Shotgun } from "./shotgun";
 import { Positionable, Vec2 } from "./vec2";
 import { Zombie } from "./zombie";
 
@@ -23,7 +23,7 @@ export class World {
   public playerScore = 0;
   public playerBullets: Bullet[] = [];
 
-  public activeGun: Gun = new Shotgun();
+  public activeGun: Gun = new AR();
 
   public zombies: Zombie[] = [];
   public buildings: Building[] = [];
