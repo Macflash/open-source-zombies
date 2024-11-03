@@ -1,13 +1,10 @@
 import React from "react";
 
 import "./App.css";
-import { Entity, World } from "./game/world";
+import { Entity } from "./game/world";
 import { Vec2 } from "./game/vec2";
 import { Game } from "./game/game";
 import { offsetRect } from "./game/physics";
-
-// cost of a guy, say... 100 food?
-// maybe they have some upkeep cost as well... eventually.
 
 const game = new Game(700);
 game.restart();
