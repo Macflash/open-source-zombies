@@ -37,6 +37,7 @@ function App() {
       onClick={(ev) => {
         world.click(new Vec2(ev.clientX, ev.clientY));
       }}
+      onMouseMove={(ev) => console.log(ev)}
     >
       <div
         style={{

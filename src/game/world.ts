@@ -1,6 +1,7 @@
 import { Bullet } from "./bullet";
+import { Gun } from "./guns/gun";
+import { Pistol } from "./guns/pistol";
 import { Player } from "./player";
-import { Gun, Pistol, Shotgun } from "./shotgun";
 import { Positionable, Vec2 } from "./vec2";
 import { Corpse, Zombie } from "./zombie";
 
