@@ -2,8 +2,8 @@ import { SignalSet } from "./signal";
 
 export class Keyboard {
   static pressedKeys = new SignalSet<string>();
-  readonly onDown = Keyboard.pressedKeys.onAdded;
-  readonly onUp = Keyboard.pressedKeys.onDeleted;
+  static readonly onDown = Keyboard.pressedKeys.onAdded;
+  static readonly onUp = Keyboard.pressedKeys.onDeleted;
 
   private static isInitialized = false;
   static attachListeners() {

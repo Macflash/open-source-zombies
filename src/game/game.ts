@@ -1,3 +1,4 @@
+import { Keyboard } from "./keyboard";
 import { Sound } from "./sound";
 import { World } from "./world";
 
@@ -12,6 +13,14 @@ export class Game {
 
   constructor(readonly size: number) {
     this.restart();
+
+    Keyboard.onDown.sub((key: string) => {
+      if (key == "escape") {
+        console.log();
+        if (this.isGameRunning()) this.pause();
+        else this.play();
+      }
+    });
   }
 
   isGameOver() {
@@ -38,7 +47,9 @@ export class Game {
   }
 
   pause() {
-    if (this.gameInterval) window.clearInterval(this.gameInterval);
+    if (!this.gameInterval) return;
+    window.clearInterval(this.gameInterval);
+    this.gameInterval = 0;
   }
 
   doStep() {

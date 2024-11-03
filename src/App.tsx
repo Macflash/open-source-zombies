@@ -52,7 +52,9 @@ function App() {
         }}
       >
         {world.player.health > 0
-          ? null
+          ? game.isGameRunning()
+            ? ""
+            : "PAUSED"
           : `YOU DIED. Score: ${world.playerScore}`}
 
         {/* Corpses */}
