@@ -3,31 +3,24 @@ import React from "react";
 import "./App.css";
 import { Entity, World } from "./game/world";
 import { Vec2 } from "./game/vec2";
+import { Game } from "./game/game";
 
 // cost of a guy, say... 100 food?
 // maybe they have some upkeep cost as well... eventually.
 
-let world = new World(700);
-for (let i = 0; i < 10; i++) {
-  world.addZombie();
-}
-world.addBuilding();
-
-setInterval(() => {
-  world.doStep();
-}, 10);
-
-// setInterval(() => {
-//   if (world.zombies.length < 20) world.addZombie();
-// }, 350);
+const game = new Game(700);
+game.restart();
+game.play();
 
 function App() {
+  const { world } = game;
   const [frame, setFrame] = React.useState(0);
   const render = React.useCallback(
     () => setFrame(frame + 1),
     [frame, setFrame]
   );
   React.useEffect(() => {
+    console.log("setting renderer");
     world.renderer = render;
   }, [render]);
 
@@ -44,6 +37,10 @@ function App() {
           world.click(new Vec2(ev.clientX, ev.clientY));
         }}
       >
+        {world.player.health > 0
+          ? null
+          : `YOU DIED. Score: ${world.playerScore}`}
+
         {/* Zombies */}
         {world.zombies.map((z) => (
           <EntityElement {...z} color={z.health > 0 ? "green" : "brown"} />
@@ -60,6 +57,7 @@ function App() {
       <div>
         {world.player.health} HP {world.activeGun.clip} / {world.activeGun.ammo}{" "}
         ➤{world.activeGun.isReloading ? "Reloading..." : ""}
+        SCORE {world.playerScore}
       </div>
     </div>
   );

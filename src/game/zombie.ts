@@ -12,7 +12,10 @@ export class Zombie implements Entity {
   private attackDelayStat = 100;
 
   doStep(world: World): boolean {
-    if (this.health <= 0) return false;
+    if (this.health <= 0) {
+      world.playerScore += 10;
+      return false;
+    }
 
     // go towards the player
     const dirVec = this.pos.directionTo(world.player.pos);
@@ -31,6 +34,7 @@ export class Zombie implements Entity {
   }
 
   takeDamage(damage: number) {
+    if (this.health <= 0) return;
     this.health -= damage;
   }
 }

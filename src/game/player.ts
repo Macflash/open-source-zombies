@@ -7,7 +7,7 @@ const keyboard = new KeyboardListener();
 export class Player implements Entity {
   public health = 100;
   public size = 20;
-  public color = "lightblue";
+  public color = "tan";
 
   constructor(public pos: Vec2) {}
 

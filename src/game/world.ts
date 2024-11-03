@@ -20,6 +20,7 @@ export class World {
   }
 
   public player: Player;
+  public playerScore = 0;
   public playerBullets: Bullet[] = [];
 
   public activeGun: Gun = new Shotgun();
