@@ -20,16 +20,32 @@ function App() {
   }, [setFrame]);
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundColor: "grey",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        // display: "flex",
+        // flexDirection: "column",
+        // alignItems: "center",
+        // justifyContent: "center",
+        userSelect: "none",
+      }}
+      onClick={(ev) => {
+        world.click(new Vec2(ev.clientX, ev.clientY));
+      }}
+    >
       <div
         style={{
           width: world.size,
           height: world.size,
           border: "1px solid black",
-          backgroundColor: world.player.health <= 0 ? "red" : undefined,
-        }}
-        onClick={(ev) => {
-          world.click(new Vec2(ev.clientX, ev.clientY));
+          position: "relative",
+          backgroundColor: world.player.health <= 0 ? "red" : "white",
+          overflow: "hidden",
         }}
       >
         {world.player.health > 0
