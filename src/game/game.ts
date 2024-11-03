@@ -54,10 +54,11 @@ export class Game {
 // spawns zombies, this rate can slowly increase?
 class Spawner {
   private spawnTimer = 0;
-  private spawnRate = 50;
+  private spawnRate = 75;
+  private maxZombies = 75;
 
   doStep(world: World) {
-    if (world.zombies.length > 50) return;
+    if (world.zombies.length > 75) return;
     if (this.spawnTimer > 0) {
       this.spawnTimer--;
       return;

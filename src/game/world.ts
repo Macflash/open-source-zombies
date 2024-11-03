@@ -3,11 +3,12 @@ import { KeyboardListener } from "./keyboard";
 import { Player } from "./player";
 import { Gun, Pistol, Shotgun } from "./shotgun";
 import { Positionable, Vec2 } from "./vec2";
-import { Zombie } from "./zombie";
+import { Corpse, Zombie } from "./zombie";
 
 export interface Entity extends Positionable {
   size: number;
   color: string;
+  className?: string;
 }
 
 export class Building {
@@ -26,6 +27,7 @@ export class World {
   public activeGun: Gun = new Pistol();
 
   public zombies: Zombie[] = [];
+  public corpses: Corpse[] = [];
   public buildings: Building[] = [];
 
   public renderer: () => void = () => {};

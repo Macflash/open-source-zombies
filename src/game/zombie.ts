@@ -1,4 +1,4 @@
-import { intersectSquare } from "./collision";
+import { intersectSquare } from "./physics";
 import { Sound } from "./sound";
 import { Positionable, Vec2 } from "./vec2";
 import { Entity, World } from "./world";
@@ -20,6 +20,8 @@ export class Zombie implements Entity {
     if (this.health <= 0) {
       world.playerScore += 10;
       //   Sound.zombie();
+      world.corpses.push(new Corpse(this));
+      if (world.corpses.length > 25) world.corpses.unshift();
       return false;
     }
 
@@ -33,11 +35,33 @@ export class Zombie implements Entity {
       this.attackDelay = this.attackDelayStat;
     }
 
+    // avoid massing
+    for (const z of world.zombies) {
+      if (z == this) continue;
+      if (intersectSquare(this, z)) {
+        // push apart?
+        const dist = this.pos.directionTo(z.pos).multiply(0.75);
+        z.pos = z.pos.plus(dist);
+      }
+    }
+
     return true;
   }
 
   takeDamage(damage: number) {
     if (this.health <= 0) return;
     this.health -= damage;
+  }
+}
+
+export class Corpse implements Entity {
+  public pos: Vec2;
+  public key: number;
+  public size = 20;
+  public color = "brown";
+
+  constructor(zombie: Zombie) {
+    this.pos = zombie.pos;
+    this.key = zombie.key;
   }
 }

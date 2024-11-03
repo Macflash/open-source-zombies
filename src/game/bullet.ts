@@ -1,4 +1,4 @@
-import { intersectSquare } from "./collision";
+import { intersectSquare } from "./physics";
 import { Positionable, Vec2 } from "./vec2";
 import { Entity, World } from "./world";
 

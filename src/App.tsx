@@ -54,6 +54,14 @@ function App() {
           ? null
           : `YOU DIED. Score: ${world.playerScore}`}
 
+        {/* Corpses */}
+        {world.corpses.map((z) => (
+          <EntityElement
+            {...z}
+            key={z.key} // dumb you have to do this.
+          />
+        ))}
+
         {/* Player bullets */}
         {world.playerBullets.map((b) => (
           <EntityElement {...b} key={b.key} />
@@ -80,9 +88,10 @@ function App() {
   );
 }
 
-export function EntityElement({ pos, size, color }: Entity) {
+export function EntityElement({ pos, size, color, className }: Entity) {
   return (
     <div
+      className={className}
       style={{
         position: "absolute",
         width: size,
