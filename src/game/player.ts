@@ -1,4 +1,5 @@
 import { KeyboardListener } from "./keyboard";
+import { Sound } from "./sound";
 import { Positionable, Vec2 } from "./vec2";
 import { Entity, World } from "./world";
 
@@ -22,5 +23,6 @@ export class Player implements Entity {
 
   takeDamage(damage: number) {
     this.health -= damage;
+    Sound.ouch();
   }
 }

@@ -1,5 +1,6 @@
 import { Bullet } from "./bullet";
 import { KeyboardListener } from "./keyboard";
+import { bang, Sound } from "./sound";
 import { Vec2 } from "./vec2";
 import { Entity, World } from "./world";
 
@@ -80,6 +81,7 @@ abstract class GenericGun implements Gun {
     this.clip--;
     this.shootDelay = this.shootTime;
 
+    Sound.bang();
     return this.spawnBullets(pos, dir);
   }
 
@@ -95,6 +97,7 @@ abstract class GenericGun implements Gun {
     this.isReloading = true;
 
     if (this.reloadDelay > 0) return;
+    Sound.reload();
     const remaining = Math.min(this.ammo, this.clipSize);
     this.clip = remaining;
     this.ammo -= remaining;

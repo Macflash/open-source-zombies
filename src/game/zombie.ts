@@ -1,3 +1,4 @@
+import { Sound } from "./sound";
 import { Positionable, Vec2 } from "./vec2";
 import { Entity, World } from "./world";
 
@@ -14,6 +15,7 @@ export class Zombie implements Entity {
   doStep(world: World): boolean {
     if (this.health <= 0) {
       world.playerScore += 10;
+      //   Sound.zombie();
       return false;
     }
 
