@@ -56,12 +56,16 @@ function App() {
 
         {/* Zombies */}
         {world.zombies.map((z) => (
-          <EntityElement {...z} color={z.health > 0 ? "green" : "brown"} />
+          <EntityElement
+            {...z}
+            color={z.health > 0 ? "green" : "brown"}
+            key={z.key} // dumb you have to do this.
+          />
         ))}
 
         {/* Player bullets */}
         {world.playerBullets.map((b) => (
-          <EntityElement {...b} />
+          <EntityElement {...b} key={b.key} />
         ))}
 
         {/* Player */}
