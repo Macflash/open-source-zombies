@@ -1,21 +1,27 @@
-import { ReadonlySet } from "typescript";
+import { SignalSet } from "./signal";
 
-const pressedKeys = new Set<string>();
+export class Keyboard {
+  static pressedKeys = new SignalSet<string>();
+  readonly onDown = Keyboard.pressedKeys.onAdded;
+  readonly onUp = Keyboard.pressedKeys.onDeleted;
 
-window.addEventListener("keydown", (ev) => {
-  pressedKeys.add(ev.key.toLowerCase());
-});
+  private static isInitialized = false;
+  static attachListeners() {
+    if (Keyboard.isInitialized) return;
+    Keyboard.isInitialized = true;
 
-window.addEventListener("keyup", (ev) => {
-  pressedKeys.delete(ev.key.toLowerCase());
-});
+    window.addEventListener("keydown", (ev) => {
+      Keyboard.pressedKeys.add(ev.key.toLowerCase());
+    });
 
-export class KeyboardListener {
-  static getPressedKeys(): ReadonlySet<string> {
-    return pressedKeys;
+    window.addEventListener("keyup", (ev) => {
+      Keyboard.pressedKeys.delete(ev.key.toLowerCase());
+    });
   }
 
-  static isPressed(key: string) {
-    return pressedKeys.has(key);
+  static isDown(key: string) {
+    return Keyboard.pressedKeys.has(key);
   }
 }
+
+Keyboard.attachListeners();

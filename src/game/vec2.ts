@@ -7,6 +7,10 @@ export interface Sizable {
 }
 
 export class Vec2 {
+  static square(size: number) {
+    return new Vec2(size, size);
+  }
+
   constructor(public x: number, public y: number) {}
 
   clone() {

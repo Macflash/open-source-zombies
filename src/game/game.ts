@@ -5,13 +5,13 @@ export class Game {
   public renderFunction: (frame: number) => void = () => {};
   private renderbit = 0;
 
-  public world: World;
+  public world = new World(100);
   private spawner = new Spawner();
 
   private gameInterval = 0;
 
   constructor(readonly size: number) {
-    this.world = new World(this.size);
+    this.restart();
   }
 
   isGameOver() {
@@ -24,6 +24,8 @@ export class Game {
 
   restart() {
     this.world = new World(this.size);
+    for (let i = 0; i < 10; i++) this.world.addZombie();
+    for (let i = 0; i < 4; i++) this.world.addBuilding();
     this.spawner = new Spawner();
   }
 
@@ -54,16 +56,16 @@ export class Game {
 // spawns zombies, this rate can slowly increase?
 class Spawner {
   private spawnTimer = 0;
-  private spawnRate = 75;
+  private spawnRate = 100;
   private maxZombies = 75;
 
   doStep(world: World) {
-    if (world.zombies.length > 75) return;
+    if (world.zombies.length > this.maxZombies) return;
     if (this.spawnTimer > 0) {
       this.spawnTimer--;
       return;
     }
-    this.spawnTimer = this.spawnRate;
+    this.spawnTimer = this.spawnRate--;
     world.addZombie();
   }
 }

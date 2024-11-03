@@ -1,4 +1,4 @@
-import { intersectSquare } from "./physics";
+import { intersectRect, unintersectRect } from "./physics";
 import { Sound } from "./sound";
 import { Positionable, Vec2 } from "./vec2";
 import { Entity, World } from "./world";
@@ -10,7 +10,7 @@ export class Zombie implements Entity {
   constructor(public pos: Vec2) {}
 
   public health = 100;
-  public size = 15;
+  public size = Vec2.square(15);
   public color = "green";
 
   private attackDelay = 0;
@@ -30,7 +30,7 @@ export class Zombie implements Entity {
     this.pos = this.pos.plus(dirVec.multiply(0.5));
 
     if (this.attackDelay > 0) this.attackDelay--;
-    else if (intersectSquare(this, world.player)) {
+    else if (intersectRect(this, world.player)) {
       world.player.takeDamage(10);
       this.attackDelay = this.attackDelayStat;
     }
@@ -38,10 +38,13 @@ export class Zombie implements Entity {
     // avoid massing
     for (const z of world.zombies) {
       if (z == this) continue;
-      if (intersectSquare(this, z)) {
-        // push apart?
-        const dist = this.pos.directionTo(z.pos).multiply(0.75);
-        z.pos = z.pos.plus(dist);
+      if (intersectRect(this, z)) unintersectRect(this, z);
+    }
+
+    // avoid buildings
+    for (const b of world.buildings) {
+      if (intersectRect(this, b)) {
+        unintersectRect(this, b);
       }
     }
 
@@ -57,8 +60,9 @@ export class Zombie implements Entity {
 export class Corpse implements Entity {
   public pos: Vec2;
   public key: number;
-  public size = 20;
+  public size = Vec2.square(20);
   public color = "brown";
+  public className = "Corpse";
 
   constructor(zombie: Zombie) {
     this.pos = zombie.pos;

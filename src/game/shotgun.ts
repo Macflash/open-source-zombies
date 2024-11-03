@@ -1,6 +1,6 @@
 import { Bullet } from "./bullet";
-import { KeyboardListener } from "./keyboard";
-import { bang, Sound } from "./sound";
+import { Keyboard } from "./keyboard";
+import { Sound } from "./sound";
 import { Vec2 } from "./vec2";
 import { Entity, World } from "./world";
 
@@ -24,7 +24,7 @@ export class Shotgun implements Gun {
   doStep() {
     if (this.shootDelay > 0) this.shootDelay--;
     if (this.reloadDelay > 0) this.reloadDelay--;
-    if (this.isReloading || KeyboardListener.isPressed("r")) this.reload();
+    if (this.isReloading || Keyboard.isDown("r")) this.reload();
   }
 
   shoot(pos: Vec2, dir: Vec2) {
@@ -74,7 +74,7 @@ abstract class GenericGun implements Gun {
   doStep() {
     if (this.shootDelay > 0) this.shootDelay--;
     if (this.reloadDelay > 0) this.reloadDelay--;
-    if (KeyboardListener.isPressed("r")) this.reload();
+    if (Keyboard.isDown("r")) this.reload();
   }
 
   shoot(pos: Vec2, dir: Vec2) {

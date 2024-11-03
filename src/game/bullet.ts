@@ -1,12 +1,12 @@
-import { intersectSquare } from "./physics";
-import { Positionable, Vec2 } from "./vec2";
+import { intersectRect } from "./physics";
+import { Vec2 } from "./vec2";
 import { Entity, World } from "./world";
 
 let bkey = 0;
 
 export class Bullet implements Entity {
   public readonly key = ++bkey;
-  public size = 5;
+  public size = Vec2.square(5);
   public color = "gold";
   constructor(public pos: Vec2, public vel: Vec2) {}
 
@@ -16,12 +16,15 @@ export class Bullet implements Entity {
 
     // Check for zombie hits
     const hit = world.zombies.find(
-      (z) => z.health > 0 && intersectSquare(this, z)
+      (z) => z.health > 0 && intersectRect(this, z)
     );
     if (hit) {
       hit.takeDamage(50);
       return false;
     }
+
+    // check for building hits.
+    if (world.buildings.some((b) => intersectRect(this, b))) return false;
 
     // Delete if it hits the edge!
     if (this.pos.x < 0 || this.pos.y < 0) return false;

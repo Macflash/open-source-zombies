@@ -4,6 +4,7 @@ import "./App.css";
 import { Entity, World } from "./game/world";
 import { Vec2 } from "./game/vec2";
 import { Game } from "./game/game";
+import { offsetRect } from "./game/physics";
 
 // cost of a guy, say... 100 food?
 // maybe they have some upkeep cost as well... eventually.
@@ -62,6 +63,11 @@ function App() {
           />
         ))}
 
+        {/* Buildings */}
+        {world.buildings.map((b, i) => (
+          <EntityElement {...b} key={i} />
+        ))}
+
         {/* Player bullets */}
         {world.playerBullets.map((b) => (
           <EntityElement {...b} key={b.key} />
@@ -88,18 +94,20 @@ function App() {
   );
 }
 
-export function EntityElement({ pos, size, color, className }: Entity) {
+export function EntityElement(props: Entity) {
+  const { className, color, size } = props;
+  const offset = offsetRect(props);
   return (
     <div
       className={className}
       style={{
         position: "absolute",
-        width: size,
-        height: size,
+        width: size.x,
+        height: size.y,
         borderRadius: 4,
         backgroundColor: color,
-        top: pos.y - 0.5 * size,
-        left: pos.x - 0.5 * size,
+        top: offset.pos.y, // - 0.5 * size.y,
+        left: offset.pos.x, // - 0.5 * size.x,
       }}
     ></div>
   );

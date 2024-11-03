@@ -1,18 +1,18 @@
 import { Bullet } from "./bullet";
-import { KeyboardListener } from "./keyboard";
 import { Player } from "./player";
 import { Gun, Pistol, Shotgun } from "./shotgun";
 import { Positionable, Vec2 } from "./vec2";
 import { Corpse, Zombie } from "./zombie";
 
 export interface Entity extends Positionable {
-  size: number;
+  size: Vec2;
   color: string;
   className?: string;
 }
 
-export class Building {
-  constructor(public pos: Vec2) {}
+export class Building implements Entity {
+  color = "grey";
+  constructor(public readonly pos: Vec2, public readonly size: Vec2) {}
 }
 
 export class World {
@@ -55,7 +55,10 @@ export class World {
 
   addBuilding() {
     this.buildings.push(
-      new Building(new Vec2(Math.random() * 500, Math.random() * 500))
+      new Building(
+        new Vec2(Math.random() * this.size, Math.random() * this.size),
+        new Vec2(100 + Math.random() * 200, 100 + Math.random() * 200)
+      )
     );
   }
 

@@ -8,7 +8,7 @@ import zombie from "../sound/zombie.wav";
 
 const audioMap = new Map<string, HTMLAudioElement>();
 
-let muted = true;
+let muted = false;
 
 function play(src: string) {
   if (muted) return;
