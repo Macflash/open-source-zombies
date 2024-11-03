@@ -14,15 +14,10 @@ game.play();
 
 function App() {
   const { world } = game;
-  const [frame, setFrame] = React.useState(0);
-  const render = React.useCallback(
-    () => setFrame(frame + 1),
-    [frame, setFrame]
-  );
+  const [_, setFrame] = React.useState(0);
   React.useEffect(() => {
-    console.log("setting renderer");
-    world.renderer = render;
-  }, [render]);
+    game.renderFunction = setFrame;
+  }, [setFrame]);
 
   return (
     <div>

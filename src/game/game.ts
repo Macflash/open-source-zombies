@@ -1,6 +1,9 @@
 import { World } from "./world";
 
 export class Game {
+  public renderFunction: (frame: number) => void = () => {};
+  private renderbit = 0;
+
   public world: World;
   private spawner = new Spawner();
 
@@ -39,6 +42,7 @@ export class Game {
     if (!this.gameInterval) return;
     this.world.doStep();
     this.spawner.doStep(this.world);
+    this.renderFunction(++this.renderbit);
     if (this.isGameOver()) this.pause();
   }
 }
