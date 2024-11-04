@@ -1,4 +1,5 @@
 import { Keyboard } from "./keyboard";
+import { Mouse } from "./mouse";
 import { Sound } from "./sound";
 import { World } from "./world";
 
@@ -20,6 +21,12 @@ export class Game {
         if (this.isGameRunning()) this.pause();
         else this.play();
       }
+    });
+
+    Mouse.mouseDown.sub(() => {
+      if (!this.gameInterval) return;
+      console.log("mouse down", Mouse.pos());
+      this.world.click(Mouse.pos());
     });
   }
 

@@ -63,9 +63,9 @@ export class World {
     );
   }
 
-  click(clickPos: Vec2) {
+  click(worldPos: Vec2) {
     //shoot!
-    const dir = this.player.pos.directionTo(clickPos);
+    const dir = this.player.pos.directionTo(worldPos);
     const projectiles = this.activeGun.shoot(this.player.pos, dir);
     projectiles.forEach((p) => this.playerBullets.push(p));
   }

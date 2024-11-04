@@ -5,6 +5,7 @@ import { Entity } from "./game/world";
 import { Vec2 } from "./game/vec2";
 import { Game } from "./game/game";
 import { offsetRect } from "./game/physics";
+import { GAMEWORLD_ID, Mouse } from "./game/mouse";
 
 const game = new Game(700);
 game.restart();
@@ -28,18 +29,18 @@ function App() {
         right: 0,
         // This doens't work with the aiming right now.
         // likely need to subtract the clientX/Y of the relative div.
-        // display: "flex",
-        // flexDirection: "column",
-        // alignItems: "center",
-        // justifyContent: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
         userSelect: "none",
       }}
-      onClick={(ev) => {
-        world.click(new Vec2(ev.clientX, ev.clientY));
-      }}
-      onMouseMove={(ev) => console.log(ev)}
+      onMouseDown={Mouse.onMouseDown}
+      onMouseUp={Mouse.onMouseUp}
+      onMouseMove={Mouse.onMouseMove}
     >
       <div
+        id={GAMEWORLD_ID}
         style={{
           width: world.size,
           height: world.size,
