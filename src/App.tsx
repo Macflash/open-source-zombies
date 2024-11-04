@@ -3,10 +3,10 @@ import React from "react";
 import "./App.css";
 import { Entity } from "./game/world";
 import { Game } from "./game/game";
-import { offsetRect } from "./game/physics";
+import { offsetRect } from "./game/physics/rect";
 import { GAMEWORLD_ID, Mouse } from "./game/input/mouse";
 import { Sound } from "./game/sound";
-import { Vec2 } from "./game/vec2";
+import { Vec2 } from "./game/physics/vec2";
 import { Keyboard } from "./game/input/keyboard";
 
 const game = new Game(700);

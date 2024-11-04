@@ -22,17 +22,6 @@ export function intersectRect(a: Rect, b: Rect) {
   a = offsetRect(a);
   b = offsetRect(b);
   return intersectRectAABB(a, b);
-  if (a.pos.x + a.size.x < b.pos.x) return false;
-  if (a.pos.x > b.pos.x + b.size.x) return false;
-  if (b.pos.x + b.size.x < a.pos.x) return false;
-  if (b.pos.x > a.pos.x + a.size.x) return false;
-
-  if (a.pos.y + a.size.y < b.pos.y) return false;
-  if (a.pos.y > b.pos.y + b.size.y) return false;
-  if (b.pos.y + b.size.y < a.pos.y) return false;
-  if (b.pos.y > a.pos.y + a.size.y) return false;
-
-  return true;
 }
 
 export function intersectRectAABB(a: Rect, b: Rect) {

@@ -1,11 +1,11 @@
-import { Bullet } from "./bullet";
+import { Bullet } from "./guns/bullet";
 import { Gun, GunDrop } from "./guns/gun";
 import { Knife, Ax, MeleeWeapon, Bash } from "./guns/melee";
 import { AssaultRifle, Pistol, Rifle } from "./guns/pistol";
 import { Shotgun } from "./guns/shotgun";
 import { Mouse } from "./input/mouse";
 import { Player } from "./player";
-import { Positionable, Vec2 } from "./vec2";
+import { Positionable, Vec2 } from "./physics/vec2";
 import { Corpse, Zombie } from "./zombie";
 
 export interface Entity extends Positionable {

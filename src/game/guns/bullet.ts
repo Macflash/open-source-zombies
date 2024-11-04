@@ -1,6 +1,6 @@
-import { intersectRect } from "./physics";
-import { Vec2 } from "./vec2";
-import { Entity, World } from "./world";
+import { intersectRect } from "../physics/rect";
+import { Vec2 } from "../physics/vec2";
+import { Entity, World } from "../world";
 
 let bkey = 0;
 
@@ -22,6 +22,7 @@ export class Bullet implements Entity {
     );
     if (hit) {
       hit.takeDamage(this.damage);
+      hit.vel = hit.vel.plus(this.vel.multiply((0.5 * this.damage) / hit.mass));
       return false;
     }
 

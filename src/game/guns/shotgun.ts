@@ -1,9 +1,9 @@
-import { Bullet } from "../bullet";
+import { Bullet } from "./bullet";
 import { Mouse } from "../input/mouse";
 import { Keyboard } from "../input/keyboard";
 import { Player } from "../player";
 import { Sound } from "../sound";
-import { Vec2 } from "../vec2";
+import { Vec2 } from "../physics/vec2";
 import { Gun } from "./gun";
 
 export class Shotgun implements Gun {

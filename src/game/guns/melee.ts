@@ -38,8 +38,8 @@ abstract class Melee {
         z.takeDamage(this.damage);
         const knockback = world.player.pos
           .directionTo(z.pos)
-          .multiply((5 * this.force) / z.mass);
-        z.pos = z.pos.plus(knockback);
+          .multiply(this.force / z.mass);
+        z.vel = z.vel.plus(knockback);
       }
     });
   }
@@ -62,6 +62,6 @@ export class Ax extends Melee {
 export class Bash extends Melee {
   readonly range = 40;
   readonly damage = 25;
-  readonly force = 150;
+  readonly force = 100;
   readonly cooldownStat = 150;
 }

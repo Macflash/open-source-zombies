@@ -1,8 +1,8 @@
 import { Keyboard } from "./input/keyboard";
 import { Mouse } from "./input/mouse";
-import { intersectRect, unintersectRect } from "./physics";
+import { intersectRect, unintersectRect } from "./physics/rect";
 import { Sound } from "./sound";
-import { Positionable, Vec2 } from "./vec2";
+import { Positionable, Vec2 } from "./physics/vec2";
 import { Entity, World } from "./world";
 
 export class Player implements Entity {

@@ -1,5 +1,5 @@
 import { Signal } from "../signal";
-import { Vec2 } from "../vec2";
+import { Vec2 } from "../physics/vec2";
 
 export const GAMEWORLD_ID = "gameworld-el";
 
