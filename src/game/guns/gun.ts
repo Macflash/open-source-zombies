@@ -3,7 +3,7 @@ import { intersectRect } from "../physics";
 import { Player } from "../player";
 import { Vec2 } from "../vec2";
 import { Entity, World } from "../world";
-import { AssaultRifle, Pistol, Rifle } from "./pistol";
+import { AssaultRifle, Minigun, Pistol, Rifle } from "./pistol";
 import { Shotgun } from "./shotgun";
 
 export interface Gun {
@@ -36,6 +36,7 @@ export function RandomGun(): Gun {
     new Shotgun(),
     new AssaultRifle(),
     new Rifle(),
+    new Minigun(),
   ];
   const r = Math.floor(Math.random() * guns.length);
   return guns[r];

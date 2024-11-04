@@ -44,6 +44,8 @@ function App() {
         return false;
       }}
     >
+      <div style={{ fontSize: "2rem", fontFamily: "fantasy" }}>OSZ</div>
+      <div style={{ fontFamily: "cursive" }}>Open Source Zombies</div>
       <div
         id={GAMEWORLD_ID}
         style={{
@@ -128,6 +130,7 @@ function App() {
         <button
           onClick={() => {
             Sound.mute();
+            setFrame(-1);
           }}
         >
           {Sound.isMuted() ? "Unmute" : "Mute"}

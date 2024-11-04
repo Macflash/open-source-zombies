@@ -22,6 +22,8 @@ abstract class GenericGun implements Gun {
   protected reloadOneByOne = false;
   abstract readonly length: number;
 
+  protected spread = 0;
+
   doStep(player: Player): Bullet[] | undefined {
     if (this.shootDelay > 0) this.shootDelay--;
     if (this.reloadDelay > 0) this.reloadDelay--;
@@ -47,7 +49,9 @@ abstract class GenericGun implements Gun {
     return [
       new Bullet(
         player.pos.plus(player.dir.multiply(this.length)),
-        player.dir.multiply(this.bulletSpeed),
+        player.dir
+          .rotate(this.spread * (Math.random() - 0.5))
+          .multiply(this.bulletSpeed),
         this.bulletDamage
       ),
     ];
@@ -90,7 +94,7 @@ export class Pistol extends GenericGun {
 export class Rifle extends GenericGun {
   readonly clipSize = 5;
   readonly reloadTime = 100;
-  readonly shootTime = 35;
+  readonly shootTime = 55;
   readonly ammo = 35;
   readonly bulletDamage = 100;
   readonly bulletSpeed = 4;
@@ -110,6 +114,24 @@ export class AssaultRifle extends GenericGun {
   readonly bulletDamage = 55;
   readonly bulletSpeed = 3.5;
   readonly length = 25;
+  override spread = 0.1;
+
+  constructor() {
+    super();
+    this.clip = this.clipSize;
+  }
+}
+
+export class Minigun extends GenericGun {
+  readonly clipSize = 100;
+  readonly reloadTime = 300;
+  readonly shootTime = 5;
+  readonly ammo = 300;
+  readonly bulletDamage = 34;
+  readonly bulletSpeed = 3.5;
+  readonly length = 20;
+
+  override spread = 0.25;
 
   constructor() {
     super();
