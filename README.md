@@ -2,6 +2,8 @@
 
 Run and gun and shoot zombies.
 
+[Play it here](https://macflash.github.io/zombie-gunner)
+
 ## Controls
 
 WASD to move. R to reload. Left click is shoot, right click is melee.
