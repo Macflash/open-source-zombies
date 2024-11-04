@@ -153,7 +153,7 @@ function App() {
       )}
       <a
         style={{ fontFamily: "cursive" }}
-        href="https://macflash.github.io/zombie-gunner"
+        href="https://github.com/macflash/zombie-gunner"
       >
         Open Source Zombies on github
       </a>
