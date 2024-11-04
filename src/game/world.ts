@@ -72,11 +72,11 @@ export class World {
     );
   }
 
-  addGun() {
+  addGun(gun: Gun) {
     this.drops.push(
       new GunDrop(
         new Vec2(Math.random() * this.size, Math.random() * this.size),
-        new Pistol()
+        gun
       )
     );
   }

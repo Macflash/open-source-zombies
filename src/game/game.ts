@@ -1,3 +1,4 @@
+import { RandomGun } from "./guns/gun";
 import { Keyboard } from "./input/keyboard";
 import { Mouse } from "./input/mouse";
 import { Sound } from "./sound";
@@ -41,9 +42,10 @@ export class Game {
 
   restart() {
     this.world = new World(this.size);
+    this.world.activeGun = RandomGun();
     for (let i = 0; i < 2; i++) this.world.addZombie();
     for (let i = 0; i < 4; i++) this.world.addBuilding();
-    for (let i = 0; i < 2; i++) this.world.addGun();
+    for (let i = 0; i < 2; i++) this.world.addGun(RandomGun());
     this.spawner = new Spawner();
   }
 

@@ -39,7 +39,6 @@ abstract class Melee {
         const knockback = world.player.pos
           .directionTo(z.pos)
           .multiply((5 * this.force) / z.mass);
-        console.log(knockback);
         z.pos = z.pos.plus(knockback);
       }
     });

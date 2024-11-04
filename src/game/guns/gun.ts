@@ -3,6 +3,8 @@ import { intersectRect } from "../physics";
 import { Player } from "../player";
 import { Vec2 } from "../vec2";
 import { Entity, World } from "../world";
+import { AssaultRifle, Pistol, Rifle } from "./pistol";
+import { Shotgun } from "./shotgun";
 
 export interface Gun {
   ammo: number;
@@ -26,4 +28,15 @@ export class GunDrop implements Entity {
     }
     return true;
   }
+}
+
+export function RandomGun(): Gun {
+  const guns: Gun[] = [
+    new Pistol(),
+    new Shotgun(),
+    new AssaultRifle(),
+    new Rifle(),
+  ];
+  const r = Math.floor(Math.random() * guns.length);
+  return guns[r];
 }
