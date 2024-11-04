@@ -6,9 +6,11 @@ let bkey = 0;
 
 export class Bullet implements Entity {
   public readonly key = ++bkey;
-  public size = Vec2.square(5);
+  public size: Vec2;
   public color = "gold";
-  constructor(public pos: Vec2, public vel: Vec2) {}
+  constructor(public pos: Vec2, public vel: Vec2, private damage = 50) {
+    this.size = Vec2.square(this.damage / 10);
+  }
 
   doStep(world: World): boolean {
     // go towards the player
@@ -19,7 +21,7 @@ export class Bullet implements Entity {
       (z) => z.health > 0 && intersectRect(this, z)
     );
     if (hit) {
-      hit.takeDamage(50);
+      hit.takeDamage(this.damage);
       return false;
     }
 

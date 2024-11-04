@@ -40,8 +40,9 @@ export class Game {
 
   restart() {
     this.world = new World(this.size);
-    for (let i = 0; i < 10; i++) this.world.addZombie();
+    for (let i = 0; i < 2; i++) this.world.addZombie();
     for (let i = 0; i < 4; i++) this.world.addBuilding();
+    for (let i = 0; i < 2; i++) this.world.addGun();
     this.spawner = new Spawner();
   }
 
@@ -74,7 +75,7 @@ export class Game {
 // spawns zombies, this rate can slowly increase?
 class Spawner {
   private spawnTimer = 0;
-  private spawnRate = 100;
+  private spawnRate = 150;
   private maxZombies = 75;
 
   doStep(world: World) {

@@ -5,6 +5,8 @@ import { Vec2 } from "../vec2";
 import { Gun } from "./gun";
 
 abstract class GenericGun implements Gun {
+  abstract readonly bulletDamage: number;
+  abstract readonly bulletSpeed: number;
   abstract readonly clipSize: number;
 
   abstract readonly reloadTime: number;
@@ -37,7 +39,13 @@ abstract class GenericGun implements Gun {
   }
 
   protected spawnBullets(pos: Vec2, dir: Vec2): Bullet[] {
-    return [new Bullet(pos.clone(), dir.multiply(3))];
+    return [
+      new Bullet(
+        pos.clone(),
+        dir.multiply(this.bulletSpeed),
+        this.bulletDamage
+      ),
+    ];
   }
 
   reload() {
@@ -61,7 +69,23 @@ export class Pistol extends GenericGun {
   readonly clipSize = 9;
   readonly reloadTime = 100;
   readonly shootTime = 25;
-  readonly ammo = 100;
+  readonly ammo = 72;
+  readonly bulletDamage = 50;
+  readonly bulletSpeed = 3;
+
+  constructor() {
+    super();
+    this.clip = this.clipSize;
+  }
+}
+
+export class Rifle extends GenericGun {
+  readonly clipSize = 5;
+  readonly reloadTime = 100;
+  readonly shootTime = 35;
+  readonly ammo = 35;
+  readonly bulletDamage = 100;
+  readonly bulletSpeed = 4;
 
   constructor() {
     super();

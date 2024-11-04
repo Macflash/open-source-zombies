@@ -1,6 +1,6 @@
 import { Bullet } from "./bullet";
-import { Gun } from "./guns/gun";
-import { Pistol } from "./guns/pistol";
+import { Gun, GunDrop } from "./guns/gun";
+import { Pistol, Rifle } from "./guns/pistol";
 import { Player } from "./player";
 import { Positionable, Vec2 } from "./vec2";
 import { Corpse, Zombie } from "./zombie";
@@ -25,11 +25,12 @@ export class World {
   public playerScore = 0;
   public playerBullets: Bullet[] = [];
 
-  public activeGun: Gun = new Pistol();
+  public activeGun: Gun = new Rifle();
 
   public zombies: Zombie[] = [];
   public corpses: Corpse[] = [];
   public buildings: Building[] = [];
+  public drops: GunDrop[] = [];
 
   public renderer: () => void = () => {};
 
@@ -37,6 +38,7 @@ export class World {
     this.activeGun.doStep(this);
     this.player.doStep(this);
     this.playerBullets = this.playerBullets.filter((b) => b.doStep(this));
+    this.drops = this.drops.filter((drop) => drop.doStep(this));
     this.zombies = this.zombies.filter((z) => z.doStep(this));
     this.renderer();
   }
@@ -59,6 +61,15 @@ export class World {
       new Building(
         new Vec2(Math.random() * this.size, Math.random() * this.size),
         new Vec2(100 + Math.random() * 200, 100 + Math.random() * 200)
+      )
+    );
+  }
+
+  addGun() {
+    this.drops.push(
+      new GunDrop(
+        new Vec2(Math.random() * this.size, Math.random() * this.size),
+        new Pistol()
       )
     );
   }

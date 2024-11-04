@@ -2,7 +2,6 @@ import React from "react";
 
 import "./App.css";
 import { Entity } from "./game/world";
-import { Vec2 } from "./game/vec2";
 import { Game } from "./game/game";
 import { offsetRect } from "./game/physics";
 import { GAMEWORLD_ID, Mouse } from "./game/mouse";
@@ -67,6 +66,14 @@ function App() {
         {/* Buildings */}
         {world.buildings.map((b, i) => (
           <EntityElement {...b} key={i} />
+        ))}
+
+        {/* drops */}
+        {world.drops.map((z, i) => (
+          <EntityElement
+            {...z}
+            key={i} // dumb you have to do this.
+          />
         ))}
 
         {/* Player bullets */}
