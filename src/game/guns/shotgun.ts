@@ -14,7 +14,7 @@ export class Shotgun implements Gun {
   private shootDelay = 0;
   private reloadDelay = 0;
 
-  length = 60;
+  length = 35;
 
   doStep(player: Player) {
     if (this.reloadDelay > 0) this.reloadDelay--;
@@ -27,6 +27,7 @@ export class Shotgun implements Gun {
 
   shoot(player: Player) {
     this.isReloading = false;
+    this.length = 35;
     if (this.clip <= 0) {
       this.reload();
       return [];
@@ -37,24 +38,25 @@ export class Shotgun implements Gun {
     else Sound.blam();
     this.shootDelay = 100;
     this.reloadDelay = 50;
+    const barrelPos = player.pos.plus(player.dir.multiply(this.length));
     return [
       new Bullet(
-        player.pos,
+        barrelPos.clone(),
         player.dir.rotate(0.5 * (Math.random() - 0.5)).multiply(3),
         34
       ),
       new Bullet(
-        player.pos,
+        barrelPos.clone(),
         player.dir.rotate(0.5 * (Math.random() - 0.5)).multiply(3),
         34
       ),
       new Bullet(
-        player.pos,
+        barrelPos.clone(),
         player.dir.rotate(0.02 + Math.random() * 0.1).multiply(3),
         34
       ),
       new Bullet(
-        player.pos,
+        barrelPos.clone(),
         player.dir.rotate(-0.02 - Math.random() * 0.1).multiply(3),
         34
       ),
@@ -64,9 +66,11 @@ export class Shotgun implements Gun {
   reload() {
     if (this.ammo <= 0 || this.clip >= 6) {
       this.isReloading = false;
+      this.length = 35;
       return;
     }
     this.isReloading = true;
+    this.length = 20;
 
     if (this.reloadDelay > 0) return;
     Sound.dong();

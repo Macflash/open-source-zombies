@@ -46,7 +46,7 @@ abstract class GenericGun implements Gun {
   protected spawnBullets(player: Player): Bullet[] {
     return [
       new Bullet(
-        player.pos.clone(),
+        player.pos.plus(player.dir.multiply(this.length)),
         player.dir.multiply(this.bulletSpeed),
         this.bulletDamage
       ),
@@ -79,7 +79,7 @@ export class Pistol extends GenericGun {
   readonly ammo = 72;
   readonly bulletDamage = 50;
   readonly bulletSpeed = 3;
-  readonly length = 35;
+  readonly length = 15;
 
   constructor() {
     super();
@@ -94,7 +94,7 @@ export class Rifle extends GenericGun {
   readonly ammo = 35;
   readonly bulletDamage = 100;
   readonly bulletSpeed = 4;
-  readonly length = 55;
+  readonly length = 45;
 
   constructor() {
     super();
@@ -109,7 +109,7 @@ export class AssaultRifle extends GenericGun {
   readonly ammo = 60;
   readonly bulletDamage = 55;
   readonly bulletSpeed = 3.5;
-  readonly length = 55;
+  readonly length = 25;
 
   constructor() {
     super();

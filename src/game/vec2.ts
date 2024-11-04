@@ -56,6 +56,10 @@ export class Vec2 {
     );
   }
 
+  angle(): number {
+    return Math.atan2(this.y, this.x);
+  }
+
   nearest<T extends Positionable>(targets: T[]): T | undefined {
     if (!targets.length) return;
 

@@ -85,6 +85,20 @@ function App() {
         {/* Player */}
         <EntityElement {...world.player} />
 
+        <div
+          style={{
+            width: world.activeGun.length,
+            height: 4,
+            borderRadius: 1,
+            backgroundColor: "black",
+            position: "absolute",
+            left: world.player.pos.x,
+            top: world.player.pos.y - 2,
+            rotate: `${world.player.dir.angle()}rad`,
+            transformOrigin: "0 2px",
+          }}
+        ></div>
+
         {/* Zombies */}
         {world.zombies.map((z) => (
           <EntityElement
