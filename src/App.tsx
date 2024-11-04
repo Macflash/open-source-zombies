@@ -9,8 +9,7 @@ import { Sound } from "./game/sound";
 import { Vec2 } from "./game/vec2";
 
 const game = new Game(700);
-game.restart();
-game.play();
+let hasStarted = false;
 
 function App() {
   const { world } = game;
@@ -136,6 +135,16 @@ function App() {
           {Sound.isMuted() ? "Unmute" : "Mute"}
         </button>
       </div>
+      {game.isGameOver() || !hasStarted ? (
+        <button
+          onClick={() => {
+            game.restart();
+            hasStarted = true;
+          }}
+        >
+          New game?
+        </button>
+      ) : null}
     </div>
   );
 }

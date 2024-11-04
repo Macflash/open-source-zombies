@@ -14,8 +14,6 @@ export class Game {
   private gameInterval = 0;
 
   constructor(readonly size: number) {
-    this.restart();
-
     Keyboard.onDown.sub((key: string) => {
       if (key == "escape") {
         console.log();
@@ -47,6 +45,7 @@ export class Game {
     for (let i = 0; i < 4; i++) this.world.addBuilding();
     for (let i = 0; i < 2; i++) this.world.addGun(RandomGun());
     this.spawner = new Spawner();
+    this.play();
   }
 
   play() {
