@@ -9,6 +9,7 @@ export class Zombie implements Entity {
   public readonly key = ++zkey;
   constructor(public pos: Vec2) {}
 
+  public mass = 50;
   public health = 100;
   public size = Vec2.square(15);
   public color = "green";

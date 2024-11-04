@@ -6,6 +6,7 @@ import { Game } from "./game/game";
 import { offsetRect } from "./game/physics";
 import { GAMEWORLD_ID, Mouse } from "./game/input/mouse";
 import { Sound } from "./game/sound";
+import { Vec2 } from "./game/vec2";
 
 const game = new Game(700);
 game.restart();
@@ -38,6 +39,10 @@ function App() {
       onMouseDown={Mouse.onMouseDown}
       onMouseUp={Mouse.onMouseUp}
       onMouseMove={Mouse.onMouseMove}
+      onContextMenu={(ev) => {
+        ev.preventDefault();
+        return false;
+      }}
     >
       <div
         id={GAMEWORLD_ID}
@@ -81,6 +86,14 @@ function App() {
         {world.playerBullets.map((b) => (
           <EntityElement {...b} key={b.key} />
         ))}
+
+        {world.activeMelee.isSwinging ? (
+          <EntityElement
+            {...world.player}
+            color="lightgrey"
+            size={Vec2.square(world.activeMelee.range)}
+          />
+        ) : null}
 
         {/* Player */}
         <EntityElement {...world.player} />

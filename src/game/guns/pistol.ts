@@ -105,7 +105,7 @@ export class Rifle extends GenericGun {
 export class AssaultRifle extends GenericGun {
   readonly clipSize = 20;
   readonly reloadTime = 100;
-  readonly shootTime = 25;
+  readonly shootTime = 10;
   readonly ammo = 60;
   readonly bulletDamage = 55;
   readonly bulletSpeed = 3.5;

@@ -1,5 +1,6 @@
 import { Bullet } from "./bullet";
 import { Gun, GunDrop } from "./guns/gun";
+import { Knife, Ax, MeleeWeapon, Bash } from "./guns/melee";
 import { AssaultRifle, Pistol, Rifle } from "./guns/pistol";
 import { Shotgun } from "./guns/shotgun";
 import { Mouse } from "./input/mouse";
@@ -11,6 +12,7 @@ export interface Entity extends Positionable {
   size: Vec2;
   color: string;
   className?: string;
+  vel?: Vec2;
 }
 
 export class Building implements Entity {
@@ -27,7 +29,8 @@ export class World {
   public playerScore = 0;
   public playerBullets: Bullet[] = [];
 
-  public activeGun: Gun = new Shotgun();
+  public activeGun: Gun = new AssaultRifle();
+  public activeMelee: MeleeWeapon = new Bash();
 
   public zombies: Zombie[] = [];
   public corpses: Corpse[] = [];
@@ -40,6 +43,7 @@ export class World {
     this.player.doStep(this);
     this.playerBullets = this.playerBullets.filter((b) => b.doStep(this));
     this.playerBullets.push(...(this.activeGun.doStep(this.player) || []));
+    this.activeMelee.doStep(this);
 
     this.drops = this.drops.filter((drop) => drop.doStep(this));
     this.zombies = this.zombies.filter((z) => z.doStep(this));

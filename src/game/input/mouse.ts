@@ -5,7 +5,9 @@ export const GAMEWORLD_ID = "gameworld-el";
 
 export class Mouse {
   private static isMouseDown = false;
+  private static isRightDown = false;
   public static readonly mouseDown = new Signal<boolean>();
+  public static readonly onRightDown = new Signal<boolean>();
 
   private static worldEl?: HTMLElement;
   private static mousePos = new Vec2(0, 0);
@@ -14,16 +16,30 @@ export class Mouse {
     return Mouse.isMouseDown;
   }
 
+  static isRight() {
+    return Mouse.isRightDown;
+  }
+
   static pos() {
     return Mouse.mousePos.clone();
   }
 
-  static onMouseDown() {
+  static onMouseDown(ev: React.MouseEvent) {
+    if (ev.button == 2) {
+      Mouse.isRightDown = true;
+      return;
+    }
+
     if (!Mouse.isMouseDown) Mouse.mouseDown.pub(true);
     Mouse.isMouseDown = true;
   }
 
-  static onMouseUp() {
+  static onMouseUp(ev: React.MouseEvent) {
+    if (ev.button == 2) {
+      Mouse.isRightDown = false;
+      return;
+    }
+
     Mouse.isMouseDown = false;
   }
 
