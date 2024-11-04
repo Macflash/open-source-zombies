@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/zombie-gunner/static/css/main.8f4c38c1.css",
+    "main.js": "/zombie-gunner/static/js/main.9dbce971.js",
+    "static/js/453.23d9d5b9.chunk.js": "/zombie-gunner/static/js/453.23d9d5b9.chunk.js",
+    "static/media/zombie.wav": "/zombie-gunner/static/media/zombie.fba6ee72eb980a020176.wav",
+    "static/media/gameover.wav": "/zombie-gunner/static/media/gameover.3dd12ed49a42ed7858b4.wav",
+    "static/media/reload.wav": "/zombie-gunner/static/media/reload.df1f9a34770a55fac3d1.wav",
+    "static/media/ding.wav": "/zombie-gunner/static/media/ding.d5ef89eb611f7c67ed1f.wav",
+    "static/media/blam.wav": "/zombie-gunner/static/media/blam.62d64d09c487db73e6a7.wav",
+    "static/media/bang.wav": "/zombie-gunner/static/media/bang.daace37025a31e247649.wav",
+    "static/media/ouch.wav": "/zombie-gunner/static/media/ouch.4bf5e479ba479d1af849.wav",
+    "static/media/nuhuh.wav": "/zombie-gunner/static/media/nuhuh.81e55ce12b02ced6196f.wav",
+    "static/media/dong.wav": "/zombie-gunner/static/media/dong.d30c099fd972e46d53de.wav",
+    "index.html": "/zombie-gunner/index.html",
+    "main.8f4c38c1.css.map": "/zombie-gunner/static/css/main.8f4c38c1.css.map",
+    "main.9dbce971.js.map": "/zombie-gunner/static/js/main.9dbce971.js.map",
+    "453.23d9d5b9.chunk.js.map": "/zombie-gunner/static/js/453.23d9d5b9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8f4c38c1.css",
+    "static/js/main.9dbce971.js"
+  ]
+}
