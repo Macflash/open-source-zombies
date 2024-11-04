@@ -27,7 +27,7 @@ export class Shotgun implements Gun {
 
   shoot(player: Player) {
     this.isReloading = false;
-    this.length = 35;
+    // this.length = 35;
     if (this.clip <= 0) {
       this.reload();
       return [];
@@ -66,11 +66,11 @@ export class Shotgun implements Gun {
   reload() {
     if (this.ammo <= 0 || this.clip >= 6) {
       this.isReloading = false;
-      this.length = 35;
+      // this.length = 35;
       return;
     }
     this.isReloading = true;
-    this.length = 20;
+    // this.length = 20;
 
     if (this.reloadDelay > 0) return;
     Sound.dong();
