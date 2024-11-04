@@ -38,6 +38,7 @@ export class Zombie implements Entity, Collidable {
 
     if (intersectRect(this, world.player)) {
       unintersectRect(this, world.player);
+      collideInelastic(this, world.player);
       if (this.attackDelay > 0) this.attackDelay--;
       else {
         world.player.takeDamage(10);
