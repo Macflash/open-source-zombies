@@ -7,7 +7,7 @@ let bkey = 0;
 export class Bullet implements Entity {
   public readonly key = ++bkey;
   public size: Vec2;
-  public color = "gold";
+  public color = "black";
   constructor(public pos: Vec2, public vel: Vec2, private damage = 50) {
     this.size = Vec2.square(this.damage / 10);
   }

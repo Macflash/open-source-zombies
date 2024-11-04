@@ -43,8 +43,7 @@ function App() {
         return false;
       }}
     >
-      <div style={{ fontSize: "2rem", fontFamily: "fantasy" }}>OSZ</div>
-      <div style={{ fontFamily: "cursive" }}>Open Source Zombies</div>
+      <div style={{ fontSize: "3rem", fontFamily: "fantasy" }}>OSZ</div>
       <div
         id={GAMEWORLD_ID}
         style={{
@@ -145,6 +144,12 @@ function App() {
           New game?
         </button>
       ) : null}
+      <a
+        style={{ fontFamily: "cursive" }}
+        href="https://macflash.github.io/zombie-gunner"
+      >
+        Open Source Zombies on github
+      </a>
     </div>
   );
 }
