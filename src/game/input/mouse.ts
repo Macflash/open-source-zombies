@@ -1,5 +1,5 @@
-import { Signal } from "./signal";
-import { Vec2 } from "./vec2";
+import { Signal } from "../signal";
+import { Vec2 } from "../vec2";
 
 export const GAMEWORLD_ID = "gameworld-el";
 
@@ -31,7 +31,6 @@ export class Mouse {
     const clientPos = new Vec2(ev.clientX, ev.clientY);
     Mouse.worldEl = Mouse.worldEl ?? document.getElementById(GAMEWORLD_ID)!;
 
-    console.log(clientPos, Mouse.worldEl);
     if (!Mouse.worldEl) return;
 
     Mouse.mousePos = clientPos.minus(

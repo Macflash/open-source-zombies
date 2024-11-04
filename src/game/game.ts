@@ -1,5 +1,5 @@
-import { Keyboard } from "./keyboard";
-import { Mouse } from "./mouse";
+import { Keyboard } from "./input/keyboard";
+import { Mouse } from "./input/mouse";
 import { Sound } from "./sound";
 import { World } from "./world";
 
@@ -23,11 +23,12 @@ export class Game {
       }
     });
 
-    Mouse.mouseDown.sub(() => {
-      if (!this.gameInterval) return;
-      console.log("mouse down", Mouse.pos());
-      this.world.click(Mouse.pos());
-    });
+    // Not needed if every gun can just shoot continuously.
+    // also should trigger reload if empty!
+    // Mouse.mouseDown.sub(() => {
+    //   if (!this.gameInterval) return;
+    //   this.world.click(Mouse.pos());
+    // });
   }
 
   isGameOver() {

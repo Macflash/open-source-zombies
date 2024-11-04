@@ -1,5 +1,6 @@
 import { Bullet } from "../bullet";
 import { intersectRect } from "../physics";
+import { Player } from "../player";
 import { Vec2 } from "../vec2";
 import { Entity, World } from "../world";
 
@@ -7,9 +8,10 @@ export interface Gun {
   ammo: number;
   clip: number;
   isReloading: boolean;
-  shoot(pos: Vec2, dir: Vec2): Bullet[];
+  length: number;
+  shoot(player: Player): Bullet[];
   reload(): void;
-  doStep(world: World): void;
+  doStep(player: Player): Bullet[] | undefined;
 }
 
 export class GunDrop implements Entity {

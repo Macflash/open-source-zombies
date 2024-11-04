@@ -1,37 +1,63 @@
 import { Bullet } from "../bullet";
-import { Keyboard } from "../keyboard";
+import { Mouse } from "../input/mouse";
+import { Keyboard } from "../input/keyboard";
+import { Player } from "../player";
 import { Sound } from "../sound";
 import { Vec2 } from "../vec2";
 import { Gun } from "./gun";
 
 export class Shotgun implements Gun {
-  public ammo = 100;
+  public ammo = 30;
   public clip = 6;
   public isReloading = false;
 
   private shootDelay = 0;
   private reloadDelay = 0;
 
-  doStep() {
-    if (this.shootDelay > 0) this.shootDelay--;
+  length = 60;
+
+  doStep(player: Player) {
     if (this.reloadDelay > 0) this.reloadDelay--;
+    if (this.shootDelay == 5 && !this.isReloading) Sound.reload();
+    if (this.shootDelay > 0) this.shootDelay--;
     if (this.isReloading || Keyboard.isDown("r")) this.reload();
+    if (Mouse.isDown()) return this.shoot(player);
+    return undefined;
   }
 
-  shoot(pos: Vec2, dir: Vec2) {
+  shoot(player: Player) {
     this.isReloading = false;
-    if (this.shootDelay > 0) return [];
     if (this.clip <= 0) {
-      Sound.nuhuh();
+      this.reload();
       return [];
     }
+    if (this.shootDelay > 0) return [];
     this.clip--;
-    this.shootDelay = 75;
-    Sound.blam();
+    if (this.clip == 0) Sound.ding();
+    else Sound.blam();
+    this.shootDelay = 100;
+    this.reloadDelay = 50;
     return [
-      new Bullet(pos, dir.multiply(3)),
-      new Bullet(pos, dir.rotate(0.1).multiply(3)),
-      new Bullet(pos, dir.rotate(-0.1).multiply(3)),
+      new Bullet(
+        player.pos,
+        player.dir.rotate(0.5 * (Math.random() - 0.5)).multiply(3),
+        34
+      ),
+      new Bullet(
+        player.pos,
+        player.dir.rotate(0.5 * (Math.random() - 0.5)).multiply(3),
+        34
+      ),
+      new Bullet(
+        player.pos,
+        player.dir.rotate(0.02 + Math.random() * 0.1).multiply(3),
+        34
+      ),
+      new Bullet(
+        player.pos,
+        player.dir.rotate(-0.02 - Math.random() * 0.1).multiply(3),
+        34
+      ),
     ];
   }
 
@@ -43,9 +69,10 @@ export class Shotgun implements Gun {
     this.isReloading = true;
 
     if (this.reloadDelay > 0) return;
-    Sound.reload();
+    Sound.dong();
     this.clip++;
     this.ammo--;
-    this.reloadDelay = 75;
+    this.reloadDelay = 100;
+    this.shootDelay = 100;
   }
 }

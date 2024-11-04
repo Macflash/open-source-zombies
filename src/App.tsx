@@ -4,7 +4,8 @@ import "./App.css";
 import { Entity } from "./game/world";
 import { Game } from "./game/game";
 import { offsetRect } from "./game/physics";
-import { GAMEWORLD_ID, Mouse } from "./game/mouse";
+import { GAMEWORLD_ID, Mouse } from "./game/input/mouse";
+import { Sound } from "./game/sound";
 
 const game = new Game(700);
 game.restart();
@@ -97,6 +98,13 @@ function App() {
         {world.player.health} HP {world.activeGun.clip} / {world.activeGun.ammo}{" "}
         ➤{world.activeGun.isReloading ? "Reloading..." : ""}
         SCORE {world.playerScore}
+        <button
+          onClick={() => {
+            Sound.mute();
+          }}
+        >
+          {Sound.isMuted() ? "Unmute" : "Mute"}
+        </button>
       </div>
     </div>
   );

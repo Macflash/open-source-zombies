@@ -1,4 +1,5 @@
-import { Keyboard } from "./keyboard";
+import { Keyboard } from "./input/keyboard";
+import { Mouse } from "./input/mouse";
 import { intersectRect, unintersectRect } from "./physics";
 import { Sound } from "./sound";
 import { Positionable, Vec2 } from "./vec2";
@@ -8,6 +9,8 @@ export class Player implements Entity {
   public health = 100;
   public size = Vec2.square(20);
   public color = "tan";
+
+  public dir = new Vec2(0, 0);
 
   constructor(public pos: Vec2) {}
 
@@ -25,6 +28,7 @@ export class Player implements Entity {
     }
 
     this.pos = this.pos.clamp(world.size);
+    this.dir = this.pos.directionTo(Mouse.pos());
   }
 
   takeDamage(damage: number) {

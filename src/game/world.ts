@@ -1,6 +1,8 @@
 import { Bullet } from "./bullet";
 import { Gun, GunDrop } from "./guns/gun";
-import { Pistol, Rifle } from "./guns/pistol";
+import { AssaultRifle, Pistol, Rifle } from "./guns/pistol";
+import { Shotgun } from "./guns/shotgun";
+import { Mouse } from "./input/mouse";
 import { Player } from "./player";
 import { Positionable, Vec2 } from "./vec2";
 import { Corpse, Zombie } from "./zombie";
@@ -25,7 +27,7 @@ export class World {
   public playerScore = 0;
   public playerBullets: Bullet[] = [];
 
-  public activeGun: Gun = new Rifle();
+  public activeGun: Gun = new Shotgun();
 
   public zombies: Zombie[] = [];
   public corpses: Corpse[] = [];
@@ -35,9 +37,10 @@ export class World {
   public renderer: () => void = () => {};
 
   doStep() {
-    this.activeGun.doStep(this);
     this.player.doStep(this);
     this.playerBullets = this.playerBullets.filter((b) => b.doStep(this));
+    this.playerBullets.push(...(this.activeGun.doStep(this.player) || []));
+
     this.drops = this.drops.filter((drop) => drop.doStep(this));
     this.zombies = this.zombies.filter((z) => z.doStep(this));
     this.renderer();
@@ -72,12 +75,5 @@ export class World {
         new Pistol()
       )
     );
-  }
-
-  click(worldPos: Vec2) {
-    //shoot!
-    const dir = this.player.pos.directionTo(worldPos);
-    const projectiles = this.activeGun.shoot(this.player.pos, dir);
-    projectiles.forEach((p) => this.playerBullets.push(p));
   }
 }
