@@ -60,6 +60,7 @@ export class Game {
     if (!this.gameInterval) return;
     window.clearInterval(this.gameInterval);
     this.gameInterval = 0;
+    this.renderFunction((this.renderbit = 0));
   }
 
   doStep() {

@@ -7,13 +7,14 @@ import { offsetRect } from "./game/physics";
 import { GAMEWORLD_ID, Mouse } from "./game/input/mouse";
 import { Sound } from "./game/sound";
 import { Vec2 } from "./game/vec2";
+import { Keyboard } from "./game/input/keyboard";
 
 const game = new Game(700);
 let hasStarted = false;
 
 function App() {
   const { world } = game;
-  const [_, setFrame] = React.useState(0);
+  const [frame, setFrame] = React.useState(0);
   React.useEffect(() => {
     game.renderFunction = setFrame;
   }, [setFrame]);
@@ -44,6 +45,7 @@ function App() {
       }}
     >
       <div style={{ fontSize: "3rem", fontFamily: "fantasy" }}>OSZ</div>
+
       <div
         id={GAMEWORLD_ID}
         style={{
@@ -55,12 +57,6 @@ function App() {
           overflow: "hidden",
         }}
       >
-        {world.player.health > 0
-          ? game.isGameRunning()
-            ? ""
-            : "PAUSED"
-          : `YOU DIED. Score: ${world.playerScore}`}
-
         {/* Corpses */}
         {world.corpses.map((z) => (
           <EntityElement
@@ -125,14 +121,6 @@ function App() {
         {world.player.health} HP {world.activeGun.clip} / {world.activeGun.ammo}{" "}
         ➤{world.activeGun.isReloading ? "Reloading..." : ""}
         SCORE {world.playerScore}
-        <button
-          onClick={() => {
-            Sound.mute();
-            setFrame(-1);
-          }}
-        >
-          {Sound.isMuted() ? "Unmute" : "Mute"}
-        </button>
       </div>
       {game.isGameOver() || !hasStarted ? (
         <button
@@ -144,6 +132,25 @@ function App() {
           New game?
         </button>
       ) : null}
+      {world.player.health > 0 ? (
+        game.isGameRunning() ? (
+          ""
+        ) : (
+          <div>
+            PAUSED:{" "}
+            <button
+              onClick={() => {
+                Sound.mute();
+                setFrame(Number(!frame));
+              }}
+            >
+              {Sound.isMuted() ? "Unmute" : "Mute"}
+            </button>
+          </div>
+        )
+      ) : (
+        `YOU DIED. Score: ${world.playerScore}`
+      )}
       <a
         style={{ fontFamily: "cursive" }}
         href="https://macflash.github.io/zombie-gunner"
