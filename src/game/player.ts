@@ -6,6 +6,19 @@ import { Positionable, Vec2 } from "./physics/vec2";
 import { Entity, World } from "./world";
 import { Collidable } from "./physics/collision";
 import { keyboard } from "@testing-library/user-event/dist/keyboard";
+import { SelectDirection } from "./physics/rotation";
+
+import guy_up from "../img/guy_up.png";
+import guy_left from "../img/guy_left.png";
+import guy_right from "../img/guy_right.png";
+import guy_down from "../img/guy_down.png";
+
+const playerImages = {
+  left: guy_left,
+  right: guy_right,
+  up: guy_up,
+  down: guy_down,
+};
 
 export class Player implements Entity, Collidable {
   public health = 100;
@@ -21,6 +34,8 @@ export class Player implements Entity, Collidable {
   maxSprint = 150;
   sprint = this.maxSprint;
   isSprinting = false;
+
+  image = guy_left;
 
   constructor(public pos: Vec2) {}
 
@@ -57,6 +72,9 @@ export class Player implements Entity, Collidable {
 
     this.pos = this.pos.clamp(world.size);
     this.dir = this.pos.directionTo(Mouse.pos());
+
+    const newImage = SelectDirection<string>(this.dir, playerImages);
+    this.image = newImage || this.image;
   }
 
   takeDamage(damage: number) {

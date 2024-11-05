@@ -13,6 +13,8 @@ export interface Entity extends Positionable {
   color: string;
   className?: string;
   vel?: Vec2;
+  radius?: number;
+  image?: string;
 }
 
 export class Building implements Entity {

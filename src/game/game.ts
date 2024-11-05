@@ -87,7 +87,8 @@ class Spawner {
       this.spawnTimer--;
       return;
     }
-    this.spawnTimer = this.spawnRate--;
+    this.spawnTimer = this.spawnRate;
+    this.spawnRate *= 0.99;
     world.addZombie();
   }
 }

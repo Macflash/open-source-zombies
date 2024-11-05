@@ -86,28 +86,33 @@ function App() {
         {world.activeMelee.isSwinging ? (
           <EntityElement
             {...world.player}
+            image={undefined}
             color="lightgrey"
             size={Vec2.square((world.activeGun.length + 10) * 2)}
             radius={1000}
           />
         ) : null}
 
+        {/* player gun */}
+        {world.activeGun.isInWall && false ? null : (
+          <div
+            style={{
+              width: world.activeGun.length,
+              height: 4,
+              borderRadius: 1,
+              backgroundColor:
+                world.activeGun.isInWall && false ? "grey" : "black",
+              position: "absolute",
+              left: world.player.pos.x,
+              top: world.player.pos.y - 2,
+              rotate: `${world.activeGun.dir.angle()}rad`,
+              transformOrigin: "0 2px",
+            }}
+          ></div>
+        )}
+
         {/* Player */}
         <EntityElement {...world.player} />
-
-        <div
-          style={{
-            width: world.activeGun.length,
-            height: 4,
-            borderRadius: 1,
-            backgroundColor: world.activeGun.isInWall ? "grey" : "black",
-            position: "absolute",
-            left: world.player.pos.x,
-            top: world.player.pos.y - 2,
-            rotate: `${world.activeGun.dir.angle()}rad`,
-            transformOrigin: "0 2px",
-          }}
-        ></div>
 
         {/* Zombies */}
         {world.zombies.map((z) => (
@@ -165,17 +170,16 @@ function App() {
   );
 }
 
-interface EntityElementProps extends Entity {
-  radius?: number;
-}
+interface EntityElementProps extends Entity {}
 
 export function EntityElement(props: EntityElementProps) {
-  const { className, color, size, radius } = props;
+  const { className, color, size, radius, image } = props;
   const offset = offsetRect(props);
   return (
     <div
       className={className}
       style={{
+        overflow: "hidden",
         position: "absolute",
         width: size.x,
         height: size.y,
@@ -184,7 +188,17 @@ export function EntityElement(props: EntityElementProps) {
         top: offset.pos.y, // - 0.5 * size.y,
         left: offset.pos.x, // - 0.5 * size.x,
       }}
-    ></div>
+    >
+      {image ? (
+        <img
+          style={{ position: "absolute", userSelect: "none" }}
+          src={image}
+          draggable={false}
+          height={size.y}
+          width={size.x}
+        />
+      ) : null}
+    </div>
   );
 }
 
