@@ -21,6 +21,11 @@ export class Game {
         if (this.isGameRunning()) this.pause();
         else this.play();
       }
+      if (key == "q") {
+        const temp = this.world.activeGun;
+        this.world.activeGun = this.world.secondaryGun;
+        this.world.secondaryGun = temp;
+      }
     });
   }
 
@@ -34,9 +39,8 @@ export class Game {
 
   restart() {
     this.world = new World(this.size);
-    this.world.activeGun = RandomGun();
-    for (let i = 0; i < 2; i++) this.world.addZombie();
     for (let i = 0; i < 4; i++) this.world.addBuilding();
+    for (let i = 0; i < 2; i++) this.world.addZombie();
     // for (let i = 0; i < 2; i++) this.world.addGun(RandomGun());
     this.spawner = new Spawner();
     this.gunSpawner = new GunSpawner();

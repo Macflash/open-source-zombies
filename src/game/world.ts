@@ -1,12 +1,12 @@
 import { Bullet } from "./guns/bullet";
 import { Gun, GunDrop } from "./guns/gun";
-import { Knife, Ax, MeleeWeapon, Bash } from "./guns/melee";
-import { AssaultRifle, Pistol, Rifle } from "./guns/pistol";
+import { AssaultRifle, Pistol, Rifle, Knife } from "./guns/pistol";
 import { Shotgun } from "./guns/shotgun";
 import { Mouse } from "./input/mouse";
 import { Player } from "./player";
 import { Positionable, Vec2 } from "./physics/vec2";
 import { Corpse, Zombie } from "./zombie";
+import { intersectRect } from "./physics/rect";
 
 export interface Entity extends Positionable {
   size: Vec2;
@@ -31,8 +31,8 @@ export class World {
   public playerScore = 0;
   public playerBullets: Bullet[] = [];
 
-  public activeGun: Gun = new AssaultRifle();
-  public activeMelee: MeleeWeapon = new Bash();
+  public activeGun: Gun = new Pistol();
+  public secondaryGun: Gun = new Knife();
 
   public zombies: Zombie[] = [];
   public corpses: Corpse[] = [];
@@ -56,14 +56,15 @@ export class World {
   addZombie() {
     const edge = Math.random() < 0.5;
     const flip = Math.random() < 0.5 ? this.size : 0;
-    this.zombies.push(
-      new Zombie(
-        new Vec2(
-          edge ? flip : Math.random() * this.size,
-          edge ? Math.random() * this.size : flip
-        )
+    const z = new Zombie(
+      new Vec2(
+        edge ? flip : Math.random() * this.size,
+        edge ? Math.random() * this.size : flip
       )
     );
+    // Don't spawn inside buildings.
+    if (this.buildings.some((b) => intersectRect(b, z))) return;
+    this.zombies.push(z);
   }
 
   addBuilding() {

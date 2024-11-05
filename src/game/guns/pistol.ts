@@ -230,7 +230,7 @@ export class Minigun extends GenericGun {
   readonly reloadTime = 300;
   readonly shootTime = 5;
   readonly ammo = 300;
-  readonly bulletDamage = 25;
+  readonly bulletDamage = 20;
   readonly bulletSpeed = 3.5;
   readonly length = 35;
 
