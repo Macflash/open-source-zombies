@@ -49,6 +49,7 @@ function App() {
       <div
         id={GAMEWORLD_ID}
         style={{
+          cursor: "crosshair",
           width: world.size,
           height: world.size,
           border: "1px solid black",
@@ -65,17 +66,19 @@ function App() {
           />
         ))}
 
+        {/* drops */}
+        {world.drops.map((d, i) => (
+          <EntityElement
+            {...d}
+            image={d.gun.image}
+            size={new Vec2(40, 25)}
+            key={i} // dumb you have to do this.
+          />
+        ))}
+
         {/* Buildings */}
         {world.buildings.map((b, i) => (
           <EntityElement {...b} key={i} />
-        ))}
-
-        {/* drops */}
-        {world.drops.map((z, i) => (
-          <EntityElement
-            {...z}
-            key={i} // dumb you have to do this.
-          />
         ))}
 
         {/* Player bullets */}
@@ -83,36 +86,15 @@ function App() {
           <EntityElement {...b} key={b.key} />
         ))}
 
-        {world.activeMelee.isSwinging ? (
+        {/* {world.activeMelee.isSwinging ? (
           <EntityElement
             {...world.player}
             image={undefined}
-            color="lightgrey"
+            color={world.activeGun"lightgrey"}
             size={Vec2.square((world.activeGun.length + 10) * 2)}
             radius={1000}
           />
-        ) : null}
-
-        {/* player gun */}
-        {world.activeGun.isInWall && false ? null : (
-          <div
-            style={{
-              width: world.activeGun.length,
-              height: 4,
-              borderRadius: 1,
-              backgroundColor:
-                world.activeGun.isInWall && false ? "grey" : "black",
-              position: "absolute",
-              left: world.player.pos.x,
-              top: world.player.pos.y - 2,
-              rotate: `${world.activeGun.dir.angle()}rad`,
-              transformOrigin: "0 2px",
-            }}
-          ></div>
-        )}
-
-        {/* Player */}
-        <EntityElement {...world.player} />
+        ) : null} */}
 
         {/* Zombies */}
         {world.zombies.map((z) => (
@@ -122,11 +104,43 @@ function App() {
             key={z.key} // dumb you have to do this.
           />
         ))}
+
+        {/* player gun */}
+        {world.activeGun.isInWall && false ? null : (
+          <div
+            style={{
+              backgroundBlendMode: "darken",
+              width: 200,
+              height: 100,
+              borderRadius: 1,
+              // backgroundColor: world.activeGun.color || "black",
+              position: "absolute",
+              left: world.player.pos.x,
+              top: world.player.pos.y - 50,
+              rotate: `${world.activeGun.dir.angle()}rad`,
+              transform: world.activeGun.dir.x < 0 ? "scaleY(-1)" : undefined,
+              transformOrigin: `0 50px`,
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+            }}
+          >
+            <img
+              src={world.activeGun.image}
+              width={world.activeGun.length}
+              style={{ userSelect: "none", marginLeft: 10 }}
+              draggable={false}
+            />
+          </div>
+        )}
+
+        {/* Player */}
+        <EntityElement {...world.player} />
       </div>
       <div>
         {world.player.health} ❤️ {Math.floor(world.player.sprint)} 🏃
         <div>
-          {world.activeGun.clip} / {world.activeGun.ammo}{" "}
+          {world.activeGun.name}:{world.activeGun.clip} / {world.activeGun.ammo}{" "}
         </div>
         ➤{world.activeGun.isReloading ? "Reloading..." : ""}
         SCORE {world.playerScore}

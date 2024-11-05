@@ -45,7 +45,8 @@ export class World {
     this.player.doStep(this);
     this.playerBullets = this.playerBullets.filter((b) => b.doStep(this));
     this.playerBullets.push(...(this.activeGun.doStep(this) || []));
-    this.activeMelee.doStep(this);
+    // Removing the melee mechanic since guns can sorta bash zombies now.
+    // this.activeMelee.doStep(this);
 
     this.drops = this.drops.filter((drop) => drop.doStep(this));
     this.zombies = this.zombies.filter((z) => z.doStep(this));

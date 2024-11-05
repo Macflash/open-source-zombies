@@ -10,6 +10,7 @@ export class Game {
 
   public world = new World(100);
   private spawner = new Spawner();
+  private gunSpawner = new GunSpawner();
 
   private gameInterval = 0;
 
@@ -21,13 +22,6 @@ export class Game {
         else this.play();
       }
     });
-
-    // Not needed if every gun can just shoot continuously.
-    // also should trigger reload if empty!
-    // Mouse.mouseDown.sub(() => {
-    //   if (!this.gameInterval) return;
-    //   this.world.click(Mouse.pos());
-    // });
   }
 
   isGameOver() {
@@ -43,8 +37,9 @@ export class Game {
     this.world.activeGun = RandomGun();
     for (let i = 0; i < 2; i++) this.world.addZombie();
     for (let i = 0; i < 4; i++) this.world.addBuilding();
-    for (let i = 0; i < 2; i++) this.world.addGun(RandomGun());
+    // for (let i = 0; i < 2; i++) this.world.addGun(RandomGun());
     this.spawner = new Spawner();
+    this.gunSpawner = new GunSpawner();
     this.play();
   }
 
@@ -67,6 +62,7 @@ export class Game {
     if (!this.gameInterval) return;
     this.world.doStep();
     this.spawner.doStep(this.world);
+    this.gunSpawner.doStep(this.world);
     this.renderFunction(++this.renderbit);
     if (this.isGameOver()) {
       Sound.gameover();
@@ -90,5 +86,23 @@ class Spawner {
     this.spawnTimer = this.spawnRate;
     this.spawnRate *= 0.99;
     world.addZombie();
+  }
+}
+
+// spawns zombies, this rate can slowly increase?
+class GunSpawner {
+  private spawnTimer = 0;
+  private spawnRate = 1000;
+  private maxSpawned = 2;
+
+  doStep(world: World) {
+    if (world.drops.length > this.maxSpawned) return;
+    if (this.spawnTimer > 0) {
+      this.spawnTimer--;
+      return;
+    }
+    this.spawnTimer = this.spawnRate;
+    this.spawnRate *= 1.1;
+    world.addGun(RandomGun());
   }
 }

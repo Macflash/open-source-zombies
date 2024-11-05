@@ -6,7 +6,11 @@ Run and gun and shoot zombies.
 
 ## Controls
 
-WASD to move. R to reload. Left click is shoot, right click is melee.
+WASD to move.
+Mouse to aim/swing.
+Click to shoot.
+R to reload.
+Q to switch guns.
 
 ## Zombies
 
@@ -19,3 +23,7 @@ The only thing protecting the brains of the world.
 ## Guns
 
 Shotgun, pistol, sniper rifle, assault rifle, and minigun.
+
+## Melee Weapons
+
+Sword, knife and sledge hammer.
