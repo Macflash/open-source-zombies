@@ -83,7 +83,7 @@ abstract class GenericGun implements Gun {
     this.clip--;
     this.shootDelay = this.shootTime;
 
-    this.clip == 0 ? Sound.nuhuh() : Sound.bang();
+    this.clip == 0 ? Sound.ding() : Sound.bang();
     return this.spawnBullets(world);
   }
 

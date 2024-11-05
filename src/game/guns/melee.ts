@@ -1,4 +1,5 @@
 import { Mouse } from "../input/mouse";
+import { Sound } from "../sound";
 import { World } from "../world";
 
 export interface MeleeWeapon {
@@ -28,20 +29,24 @@ abstract class Melee {
       return;
     }
     if (!Mouse.isRight()) return;
-
+    Sound.melee();
     this.isSwinging = true;
     this.cooldown = this.cooldownStat;
 
     // check if zombie is in RANGE
+    let hit = false;
     world.zombies.forEach((z) => {
       if (z.pos.distanceTo(world.player.pos) <= world.activeGun.length + 10) {
         z.takeDamage(this.damage);
+        hit = true;
         const knockback = world.player.pos
           .directionTo(z.pos)
           .multiply(this.force / z.mass);
         z.vel = z.vel.plus(knockback);
       }
     });
+
+    // if (hit) Sound.bonk();
   }
 }
 

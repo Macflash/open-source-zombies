@@ -1,6 +1,7 @@
 import { Collidable, collideInelastic } from "./physics/collision";
 import { intersectRect, unintersectRect } from "./physics/rect";
 import { Vec2 } from "./physics/vec2";
+import { Sound } from "./sound";
 import { Entity, World } from "./world";
 
 let zkey = 0;
@@ -71,6 +72,11 @@ export class Zombie implements Entity, Collidable {
   takeDamage(damage: number) {
     if (this.health <= 0) return;
     this.health -= damage;
+    Sound.tap();
+    if (this.health <= 0) {
+      this.health = 0;
+      Sound.bonk();
+    }
   }
 }
 

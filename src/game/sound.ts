@@ -7,6 +7,10 @@ import ouch from "../sound/ouch.wav";
 import zombie from "../sound/zombie.wav";
 import ding from "../sound/ding.wav";
 import dong from "../sound/dong.wav";
+import bonk from "../sound/bonk.wav";
+import melee from "../sound/melee.wav";
+import run from "../sound/run.wav";
+import tap from "../sound/tap.wav";
 
 const audioMap = new Map<string, HTMLAudioElement>();
 
@@ -22,7 +26,6 @@ function play(src: string) {
     }
     if (audio.paused) audio.play();
     else {
-      audio.pause();
       audio.currentTime = 0;
       audio.play();
     }
@@ -48,4 +51,8 @@ export class Sound {
   static zombie = () => play(zombie);
   static ding = () => play(ding);
   static dong = () => play(dong);
+  static bonk = () => play(bonk);
+  static melee = () => play(melee);
+  static run = () => play(run);
+  static tap = () => play(tap);
 }
