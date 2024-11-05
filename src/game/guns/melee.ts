@@ -34,7 +34,7 @@ abstract class Melee {
 
     // check if zombie is in RANGE
     world.zombies.forEach((z) => {
-      if (z.pos.distanceTo(world.player.pos) <= this.range) {
+      if (z.pos.distanceTo(world.player.pos) <= world.activeGun.length + 10) {
         z.takeDamage(this.damage);
         const knockback = world.player.pos
           .directionTo(z.pos)

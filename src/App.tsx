@@ -87,7 +87,8 @@ function App() {
           <EntityElement
             {...world.player}
             color="lightgrey"
-            size={Vec2.square(world.activeMelee.range)}
+            size={Vec2.square((world.activeGun.length + 10) * 2)}
+            radius={1000}
           />
         ) : null}
 
@@ -164,8 +165,12 @@ function App() {
   );
 }
 
-export function EntityElement(props: Entity) {
-  const { className, color, size } = props;
+interface EntityElementProps extends Entity {
+  radius?: number;
+}
+
+export function EntityElement(props: EntityElementProps) {
+  const { className, color, size, radius } = props;
   const offset = offsetRect(props);
   return (
     <div
@@ -174,7 +179,7 @@ export function EntityElement(props: Entity) {
         position: "absolute",
         width: size.x,
         height: size.y,
-        borderRadius: 4,
+        borderRadius: radius ?? 4,
         backgroundColor: color,
         top: offset.pos.y, // - 0.5 * size.y,
         left: offset.pos.x, // - 0.5 * size.x,

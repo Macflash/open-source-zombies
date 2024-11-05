@@ -2,7 +2,7 @@ import { Bullet } from "./bullet";
 import { intersectRect } from "../physics/rect";
 import { Vec2 } from "../physics/vec2";
 import { Entity, World } from "../world";
-import { AssaultRifle, Minigun, Pistol, Rifle } from "./pistol";
+import { AssaultRifle, AutoShotgun, Minigun, Pistol, Rifle } from "./pistol";
 import { Shotgun } from "./shotgun";
 
 export interface Gun {
@@ -36,6 +36,7 @@ export function RandomGun(): Gun {
   const guns: Gun[] = [
     new Pistol(),
     // new Shotgun(),
+    new AutoShotgun(),
     new AssaultRifle(),
     new Rifle(),
     new Minigun(),

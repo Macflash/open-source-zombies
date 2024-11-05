@@ -181,3 +181,52 @@ export class Minigun extends GenericGun {
     this.clip = this.clipSize;
   }
 }
+
+export class AutoShotgun extends GenericGun {
+  readonly clipSize = 8;
+  readonly reloadTime = 150;
+  readonly shootTime = 60;
+  readonly ammo = 36;
+  readonly bulletDamage = 34;
+  readonly bulletSpeed = 3.5;
+  readonly length = 30;
+
+  override spread = 0.25;
+
+  constructor() {
+    super();
+    this.clip = this.clipSize;
+  }
+
+  protected override spawnBullets(world: World): Bullet[] {
+    const { player } = world;
+    return [
+      new Bullet(
+        player.pos.plus(this.dir.multiply(this.length)),
+        this.dir.rotate(this.spread * Math.random()).multiply(this.bulletSpeed),
+        this.bulletDamage
+      ),
+      new Bullet(
+        player.pos.plus(this.dir.multiply(this.length)),
+        this.dir
+          .rotate(this.spread * -1 * Math.random())
+          .multiply(this.bulletSpeed),
+        this.bulletDamage
+      ),
+      new Bullet(
+        player.pos.plus(this.dir.multiply(this.length)),
+        this.dir
+          .rotate(this.spread * (Math.random() - 0.5))
+          .multiply(this.bulletSpeed),
+        this.bulletDamage
+      ),
+      new Bullet(
+        player.pos.plus(this.dir.multiply(this.length)),
+        this.dir
+          .rotate(this.spread * (Math.random() - 0.5))
+          .multiply(this.bulletSpeed),
+        this.bulletDamage
+      ),
+    ];
+  }
+}
