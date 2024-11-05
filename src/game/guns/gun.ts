@@ -1,12 +1,13 @@
 import { Bullet } from "./bullet";
 import { intersectRect } from "../physics/rect";
-import { Player } from "../player";
 import { Vec2 } from "../physics/vec2";
 import { Entity, World } from "../world";
 import { AssaultRifle, Minigun, Pistol, Rifle } from "./pistol";
 import { Shotgun } from "./shotgun";
 
 export interface Gun {
+  dir: Vec2;
+  vel: number;
   ammo: number;
   clip: number;
   isReloading: boolean;

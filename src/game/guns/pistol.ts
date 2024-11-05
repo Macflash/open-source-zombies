@@ -7,6 +7,7 @@ import { Vec2 } from "../physics/vec2";
 import { Gun } from "./gun";
 import { World } from "../world";
 import { intersectRay } from "../physics/ray";
+import { angleBetween } from "../physics/rotation";
 
 abstract class GenericGun implements Gun {
   abstract readonly bulletDamage: number;
@@ -16,8 +17,8 @@ abstract class GenericGun implements Gun {
   abstract readonly reloadTime: number;
   abstract readonly shootTime: number;
   abstract ammo: number;
-  public clip = 0;
-  public isReloading = false;
+  clip = 0;
+  isReloading = false;
 
   private shootDelay = 0;
   private reloadDelay = 0;
@@ -26,12 +27,28 @@ abstract class GenericGun implements Gun {
 
   protected spread = 0;
 
-  public isInWall = false;
+  dir = new Vec2(1, 0);
+  vel = 0;
+  force = 0.2;
+  isInWall = false;
 
   doStep(world: World): Bullet[] | undefined {
     if (this.shootDelay > 0) this.shootDelay--;
     if (this.reloadDelay > 0) this.reloadDelay--;
     if (Keyboard.isDown("r")) this.reload();
+
+    // const angleDiff = angleBetween(world.player.dir, this.dir);
+    // console.log("angle", angleDiff);
+
+    // // need to figure out shortest direction to the proper dir!
+
+    // if (angleDiff > 0 && angleDiff <= Math.PI)
+    //   this.vel +=
+    //     this.force / this.length; //TODO: using length as MASS for now.
+    // else this.vel -= this.force / this.length; //TODO: using length as MASS for now.
+    // this.vel *= 0.9;
+    // this.dir = this.dir.rotate(this.vel);
+    this.dir = world.player.dir.clone();
 
     // check if we are intersecting a wall!
     for (const building of world.buildings) {
@@ -74,8 +91,8 @@ abstract class GenericGun implements Gun {
     const { player } = world;
     return [
       new Bullet(
-        player.pos.plus(player.dir.multiply(this.length)),
-        player.dir
+        player.pos.plus(this.dir.multiply(this.length)),
+        this.dir
           .rotate(this.spread * (Math.random() - 0.5))
           .multiply(this.bulletSpeed),
         this.bulletDamage

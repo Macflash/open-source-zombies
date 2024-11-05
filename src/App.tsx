@@ -103,7 +103,7 @@ function App() {
             position: "absolute",
             left: world.player.pos.x,
             top: world.player.pos.y - 2,
-            rotate: `${world.player.dir.angle()}rad`,
+            rotate: `${world.activeGun.dir.angle()}rad`,
             transformOrigin: "0 2px",
           }}
         ></div>
