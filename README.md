@@ -2,7 +2,7 @@
 
 Run and gun and shoot zombies.
 
-[Play it here](https://macflash.github.io/zombie-gunner)
+[Play it here](https://macflash.github.io/open-source-zombies)
 
 ## Controls
 
