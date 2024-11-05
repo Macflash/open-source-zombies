@@ -118,7 +118,10 @@ function App() {
         ))}
       </div>
       <div>
-        {world.player.health} HP {world.activeGun.clip} / {world.activeGun.ammo}{" "}
+        {world.player.health} ❤️ {Math.floor(world.player.sprint)} 🏃
+        <div>
+          {world.activeGun.clip} / {world.activeGun.ammo}{" "}
+        </div>
         ➤{world.activeGun.isReloading ? "Reloading..." : ""}
         SCORE {world.playerScore}
       </div>

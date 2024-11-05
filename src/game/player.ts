@@ -18,12 +18,33 @@ export class Player implements Entity, Collidable {
   public vel = Vec2.zero();
   public dir = Vec2.zero();
 
+  maxSprint = 150;
+  sprint = this.maxSprint;
+  isSprinting = false;
+
   constructor(public pos: Vec2) {}
 
   doStep(world: World) {
-    let moveDir = getKeyboardDir().multiply(this.force / this.mass);
-    if (Keyboard.isDown("shift")) moveDir = moveDir.multiply(1.5);
-    this.vel = this.vel.plus(moveDir).multiply(0.9);
+    // USING gun length as mass lol.
+    const keyDir = getKeyboardDir();
+    if (keyDir) {
+      let moveDir = keyDir.multiply(
+        this.force / (this.mass + world.activeGun.length)
+      );
+      if (Keyboard.isDown("shift") && this.sprint > 1) {
+        this.isSprinting = true;
+        moveDir = moveDir.multiply(1.75);
+        this.sprint--;
+      } else if (this.sprint < this.maxSprint) {
+        this.sprint += 0.3;
+      }
+      this.vel = this.vel.plus(moveDir);
+    } else if (this.sprint < this.maxSprint) {
+      // Recovers faster when standing still
+      this.sprint += 0.5;
+    }
+
+    this.vel = this.vel.multiply(0.9);
     this.pos = this.pos.plus(this.vel);
 
     // avoid buildings
@@ -56,5 +77,5 @@ function getKeyboardDir() {
   if (Keyboard.isDown("d")) return new Vec2(1, 0);
   if (Keyboard.isDown("w")) return new Vec2(0, -1);
   if (Keyboard.isDown("s")) return new Vec2(0, 1);
-  return Vec2.zero();
+  return undefined;
 }
