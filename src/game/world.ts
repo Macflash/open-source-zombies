@@ -42,7 +42,7 @@ export class World {
   doStep() {
     this.player.doStep(this);
     this.playerBullets = this.playerBullets.filter((b) => b.doStep(this));
-    this.playerBullets.push(...(this.activeGun.doStep(this.player) || []));
+    this.playerBullets.push(...(this.activeGun.doStep(this) || []));
     this.activeMelee.doStep(this);
 
     this.drops = this.drops.filter((drop) => drop.doStep(this));

@@ -99,7 +99,7 @@ function App() {
             width: world.activeGun.length,
             height: 4,
             borderRadius: 1,
-            backgroundColor: "black",
+            backgroundColor: world.activeGun.isInWall ? "grey" : "black",
             position: "absolute",
             left: world.player.pos.x,
             top: world.player.pos.y - 2,

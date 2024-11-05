@@ -5,6 +5,8 @@ import { Player } from "../player";
 import { Sound } from "../sound";
 import { Vec2 } from "../physics/vec2";
 import { Gun } from "./gun";
+import { World } from "../world";
+import { intersectRay } from "../physics/ray";
 
 abstract class GenericGun implements Gun {
   abstract readonly bulletDamage: number;
@@ -24,14 +26,37 @@ abstract class GenericGun implements Gun {
 
   protected spread = 0;
 
-  doStep(player: Player): Bullet[] | undefined {
+  public isInWall = false;
+
+  doStep(world: World): Bullet[] | undefined {
     if (this.shootDelay > 0) this.shootDelay--;
     if (this.reloadDelay > 0) this.reloadDelay--;
     if (Keyboard.isDown("r")) this.reload();
-    if (Mouse.isDown()) return this.shoot(player);
+
+    // check if we are intersecting a wall!
+    for (const building of world.buildings) {
+      if (
+        intersectRay(
+          {
+            pos: world.player.pos,
+            vec: world.player.dir.multiply(this.length),
+            steps: this.length / 10,
+          },
+          building
+        )
+      ) {
+        // don't allow shooting.
+        // TODO: Should we prevent the gun from rotating that way?
+        // Or maybe clamp it to the nearest rotation that doesn't intersect?
+        this.isInWall = true;
+        return;
+      }
+    }
+    this.isInWall = false;
+    if (Mouse.isDown()) return this.shoot(world);
   }
 
-  shoot(player: Player) {
+  shoot(world: World) {
     this.isReloading = false;
     if (this.shootDelay > 0) return [];
     if (this.clip <= 0) {
@@ -42,10 +67,11 @@ abstract class GenericGun implements Gun {
     this.shootDelay = this.shootTime;
 
     this.clip == 0 ? Sound.nuhuh() : Sound.bang();
-    return this.spawnBullets(player);
+    return this.spawnBullets(world);
   }
 
-  protected spawnBullets(player: Player): Bullet[] {
+  protected spawnBullets(world: World): Bullet[] {
+    const { player } = world;
     return [
       new Bullet(
         player.pos.plus(player.dir.multiply(this.length)),

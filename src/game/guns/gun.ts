@@ -11,9 +11,10 @@ export interface Gun {
   clip: number;
   isReloading: boolean;
   length: number;
-  shoot(player: Player): Bullet[];
+  isInWall?: boolean;
+  shoot(world: World): Bullet[];
   reload(): void;
-  doStep(player: Player): Bullet[] | undefined;
+  doStep(world: World): Bullet[] | undefined;
 }
 
 export class GunDrop implements Entity {
@@ -33,7 +34,7 @@ export class GunDrop implements Entity {
 export function RandomGun(): Gun {
   const guns: Gun[] = [
     new Pistol(),
-    new Shotgun(),
+    // new Shotgun(),
     new AssaultRifle(),
     new Rifle(),
     new Minigun(),
