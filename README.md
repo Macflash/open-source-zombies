@@ -7,9 +7,13 @@ Run and gun and shoot zombies.
 ## Controls
 
 WASD to move.
+
 Mouse to aim/swing.
+
 Click to shoot.
+
 R to reload.
+
 Q to switch guns.
 
 ## Zombies
