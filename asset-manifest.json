@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/open-source-zombies/static/css/main.25df5f8a.css",
-    "main.js": "/open-source-zombies/static/js/main.ea59bfcd.js",
+    "main.js": "/open-source-zombies/static/js/main.fd6b6d43.js",
     "static/js/453.23d9d5b9.chunk.js": "/open-source-zombies/static/js/453.23d9d5b9.chunk.js",
     "static/media/zombie.wav": "/open-source-zombies/static/media/zombie.fba6ee72eb980a020176.wav",
     "static/media/gameover.wav": "/open-source-zombies/static/media/gameover.3dd12ed49a42ed7858b4.wav",
@@ -21,11 +21,11 @@
     "static/media/effect_splatter.png": "/open-source-zombies/static/media/effect_splatter.1c42d4612f4b171f3e26.png",
     "index.html": "/open-source-zombies/index.html",
     "main.25df5f8a.css.map": "/open-source-zombies/static/css/main.25df5f8a.css.map",
-    "main.ea59bfcd.js.map": "/open-source-zombies/static/js/main.ea59bfcd.js.map",
+    "main.fd6b6d43.js.map": "/open-source-zombies/static/js/main.fd6b6d43.js.map",
     "453.23d9d5b9.chunk.js.map": "/open-source-zombies/static/js/453.23d9d5b9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.25df5f8a.css",
-    "static/js/main.ea59bfcd.js"
+    "static/js/main.fd6b6d43.js"
   ]
 }
