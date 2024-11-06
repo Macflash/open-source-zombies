@@ -206,7 +206,7 @@ export class Rifle extends GenericGun {
   readonly ammo = 35;
   readonly bulletDamage = 100;
   readonly bulletSpeed = 4;
-  readonly length = 45;
+  readonly length = 55;
 
   color = "brown";
   width = 5;
