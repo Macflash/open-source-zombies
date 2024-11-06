@@ -37,6 +37,18 @@ export class GunDrop implements Entity {
 
   doStep(world: World): boolean {
     if (intersectRect(this, world.player)) {
+      // primary is the same as this so just take the ammo.
+      if (world.activeGun.name === this.gun.name) {
+        world.activeGun.ammo += this.gun.ammo + this.gun.clip;
+        return false;
+      }
+
+      // secondary is the same as this so just take the ammo.
+      if (world.secondaryGun.name === this.gun.name) {
+        world.secondaryGun.ammo += this.gun.ammo + this.gun.clip;
+        return false;
+      }
+
       world.activeGun = this.gun;
       return false;
     }

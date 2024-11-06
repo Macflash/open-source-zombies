@@ -82,7 +82,7 @@ class Spawner {
   private maxZombies = 75;
 
   doStep(world: World) {
-    if (world.zombies.length > this.maxZombies) return;
+    if (world.zombies.length >= this.maxZombies) return;
     if (this.spawnTimer > 0) {
       this.spawnTimer--;
       return;

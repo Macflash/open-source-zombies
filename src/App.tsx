@@ -66,6 +66,11 @@ function App() {
           />
         ))}
 
+        {/* Buildings */}
+        {world.buildings.map((b, i) => (
+          <EntityElement {...b} key={i} />
+        ))}
+
         {/* drops */}
         {world.drops.map((d, i) => (
           <EntityElement
@@ -74,11 +79,6 @@ function App() {
             size={new Vec2(40, 25)}
             key={i} // dumb you have to do this.
           />
-        ))}
-
-        {/* Buildings */}
-        {world.buildings.map((b, i) => (
-          <EntityElement {...b} key={i} />
         ))}
 
         {/* Player bullets */}

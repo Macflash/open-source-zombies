@@ -64,6 +64,10 @@ export class Vec2 {
     return Math.atan2(this.y, this.x);
   }
 
+  dot(other: Vec2): number {
+    return this.x * other.x + this.y * other.y;
+  }
+
   nearest<T extends Positionable>(targets: T[]): T | undefined {
     if (!targets.length) return;
 

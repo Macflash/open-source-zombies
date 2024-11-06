@@ -63,7 +63,11 @@ export class World {
       )
     );
     // Don't spawn inside buildings.
-    if (this.buildings.some((b) => intersectRect(b, z))) return;
+    if (this.buildings.some((b) => intersectRect(b, z))) {
+      this.addZombie();
+      return;
+    }
+
     this.zombies.push(z);
   }
 
@@ -77,11 +81,19 @@ export class World {
   }
 
   addGun(gun: Gun) {
-    this.drops.push(
-      new GunDrop(
-        new Vec2(Math.random() * this.size, Math.random() * this.size),
-        gun
-      )
+    console.log("addgun", gun);
+    const drop = new GunDrop(
+      new Vec2(Math.random() * this.size, Math.random() * this.size),
+      gun
     );
+
+    if (this.buildings.some((b) => intersectRect(b, drop))) {
+      console.log("intersect!");
+      this.addGun(gun);
+      return;
+    }
+
+    console.log("addgun success", drop);
+    this.drops.push(drop);
   }
 }

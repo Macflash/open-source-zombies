@@ -6,7 +6,7 @@ import { Sound } from "../sound";
 import { Vec2 } from "../physics/vec2";
 import { Gun } from "./gun";
 import { World } from "../world";
-import { intersectRay } from "../physics/ray";
+import { intersectRay, intersectRayDot } from "../physics/ray";
 import { angleBetween } from "../physics/rotation";
 
 import gun_default from "../../img/gun_default.png";
@@ -16,6 +16,7 @@ import gun_ar from "../../img/gun_ar.png";
 import gun_sniper from "../../img/gun_sniper.png";
 import gun_mini from "../../img/gun_minigun.png";
 
+import melee_knife from "../../img/melee_knife.png";
 import melee_sword from "../../img/melee_sword.png";
 import melee_sledge from "../../img/melee_sledge.png";
 
@@ -51,6 +52,7 @@ abstract class GenericGun implements Gun {
 
   image = gun_default;
   meleeSound = Sound.bonk;
+  shootSound = Sound.bang;
 
   doStep(world: World): Bullet[] | undefined {
     if (this.shootDelay > 0) this.shootDelay--;
@@ -92,11 +94,12 @@ abstract class GenericGun implements Gun {
     this.isInWall = false;
 
     // check if we are intersecting a zombie!
+    // Feels like this misses collisions!
     for (const z of world.zombies.filter(
-      (z) => z.pos.distanceTo(world.player.pos) < this.length + 20
+      (z) => z.pos.distanceTo(world.player.pos) - z.size.x < this.length
     )) {
       if (
-        intersectRay(
+        intersectRayDot(
           {
             pos: world.player.pos,
             vec: world.player.dir.multiply(this.length),
@@ -127,7 +130,7 @@ abstract class GenericGun implements Gun {
     this.clip--;
     this.shootDelay = this.shootTime;
 
-    this.clip == 0 ? Sound.ding() : Sound.bang();
+    this.clip == 0 ? Sound.ding() : this.shootSound();
     return this.spawnBullets(world);
   }
 
@@ -192,11 +195,11 @@ export class Rifle extends GenericGun {
   readonly bulletSpeed = 4;
   readonly length = 45;
 
-  protected override bashForce = 0.7;
-
   color = "brown";
   width = 5;
   image = gun_sniper;
+  shootSound = Sound.blam;
+  protected override bashForceKickback = 0.3;
 
   constructor() {
     super();
@@ -253,13 +256,14 @@ export class SledgeHammer extends GenericGun {
   readonly bulletDamage = 0;
   readonly bulletSpeed = 0;
   readonly length = 50;
-  protected override bashDamage = 35;
+  protected override bashDamage = 25;
   protected override bashForce = 3;
   protected override bashForceKickback = 0.3;
 
   color = "darkblue";
   width = 6;
   image = melee_sledge;
+  meleeSound = Sound.dong;
 
   constructor() {
     super();
@@ -310,7 +314,7 @@ export class Knife extends GenericGun {
 
   width = 3;
   color = "lightgrey";
-  image = melee_sword;
+  image = melee_knife;
   meleeSound = Sound.melee;
 
   constructor() {
@@ -334,6 +338,8 @@ export class AutoShotgun extends GenericGun {
 
   override spread = 0.25;
   image = gun_shotgun;
+
+  shootSound = Sound.blam;
 
   constructor() {
     super();

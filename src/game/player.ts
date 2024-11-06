@@ -50,7 +50,7 @@ export class Player implements Entity, Collidable {
         this.isSprinting = true;
         moveDir = moveDir.multiply(1.75);
         this.sprint--;
-        if (this.sprint % 30 == 0) Sound.run();
+        if (this.sprint > 5 && Math.floor(this.sprint) % 25 == 0) Sound.run();
       } else if (this.sprint < this.maxSprint) {
         this.sprint += 0.3;
       }
