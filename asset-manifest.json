@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/open-source-zombies/static/css/main.8f4c38c1.css",
-    "main.js": "/open-source-zombies/static/js/main.6c2cee7f.js",
+    "main.css": "/open-source-zombies/static/css/main.25df5f8a.css",
+    "main.js": "/open-source-zombies/static/js/main.24563a0d.js",
     "static/js/453.23d9d5b9.chunk.js": "/open-source-zombies/static/js/453.23d9d5b9.chunk.js",
     "static/media/zombie.wav": "/open-source-zombies/static/media/zombie.fba6ee72eb980a020176.wav",
     "static/media/gameover.wav": "/open-source-zombies/static/media/gameover.3dd12ed49a42ed7858b4.wav",
@@ -14,15 +14,18 @@
     "static/media/reload.wav": "/open-source-zombies/static/media/reload.3088ae24ef606f10fc17.wav",
     "static/media/melee.wav": "/open-source-zombies/static/media/melee.1e9092e679942cbb5c6b.wav",
     "static/media/dong.wav": "/open-source-zombies/static/media/dong.d30c099fd972e46d53de.wav",
+    "static/media/effect_blood.png": "/open-source-zombies/static/media/effect_blood.d93b48bb6058c9724e08.png",
     "static/media/run.wav": "/open-source-zombies/static/media/run.3695511ab7b0b26c63d1.wav",
     "static/media/bonk.wav": "/open-source-zombies/static/media/bonk.5b9cd087949e479032f2.wav",
+    "static/media/effect_slash.png": "/open-source-zombies/static/media/effect_slash.59bded903486d1c56ab6.png",
+    "static/media/effect_splatter.png": "/open-source-zombies/static/media/effect_splatter.1c42d4612f4b171f3e26.png",
     "index.html": "/open-source-zombies/index.html",
-    "main.8f4c38c1.css.map": "/open-source-zombies/static/css/main.8f4c38c1.css.map",
-    "main.6c2cee7f.js.map": "/open-source-zombies/static/js/main.6c2cee7f.js.map",
+    "main.25df5f8a.css.map": "/open-source-zombies/static/css/main.25df5f8a.css.map",
+    "main.24563a0d.js.map": "/open-source-zombies/static/js/main.24563a0d.js.map",
     "453.23d9d5b9.chunk.js.map": "/open-source-zombies/static/js/453.23d9d5b9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8f4c38c1.css",
-    "static/js/main.6c2cee7f.js"
+    "static/css/main.25df5f8a.css",
+    "static/js/main.24563a0d.js"
   ]
 }
