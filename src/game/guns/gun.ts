@@ -31,6 +31,7 @@ export interface Gun {
 }
 
 export class GunDrop implements Entity {
+  border = true;
   readonly size = Vec2.square(20);
   readonly color = "lightblue";
   constructor(public readonly pos: Vec2, public readonly gun: Gun) {}

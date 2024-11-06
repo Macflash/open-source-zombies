@@ -9,6 +9,9 @@ import zombie_left from "../img/zombie_left.png";
 import zombie_right from "../img/zombie_right.png";
 import zombie_down from "../img/zombie_down.png";
 import { SelectDirection } from "./physics/rotation";
+import { Debris } from "./debris";
+
+import effect_blood from "../img/effect_blood.png";
 
 const zombieImages = {
   left: zombie_left,
@@ -20,6 +23,7 @@ const zombieImages = {
 let zkey = 0;
 
 export class Zombie implements Entity, Collidable {
+  border = true;
   public readonly key = ++zkey;
   constructor(public pos: Vec2) {}
 
@@ -42,8 +46,14 @@ export class Zombie implements Entity, Collidable {
     if (this.health <= 0) {
       world.playerScore += 10;
       //   Sound.zombie();
-      world.corpses.push(new Corpse(this));
-      if (world.corpses.length > 25) world.corpses.unshift();
+      world.debris.push(
+        new Debris(
+          this.pos.clone(),
+          effect_blood,
+          Math.random() * Math.PI * 2,
+          Vec2.square(20)
+        )
+      );
       return false;
     }
 
@@ -102,18 +112,6 @@ export class Zombie implements Entity, Collidable {
       Sound.bonk();
     }
     // needs the world...
-    //else world.corpses.push(new Corpse(this, Vec2.square(5)));
-  }
-}
-
-export class Corpse implements Entity {
-  public pos: Vec2;
-  public key: number;
-  public color = "brown";
-  public className = "Corpse";
-
-  constructor(zombie: Zombie, public size = Vec2.square(20)) {
-    this.pos = zombie.pos;
-    this.key = zombie.key;
+    // else world.debris.push(new Debris(this.pos.clone()));
   }
 }

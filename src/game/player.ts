@@ -21,6 +21,7 @@ const playerImages = {
 };
 
 export class Player implements Entity, Collidable {
+  border = true;
   public health = 100;
   public mass = 100;
   private force = 10;

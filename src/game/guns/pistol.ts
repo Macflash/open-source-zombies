@@ -19,6 +19,9 @@ import gun_mini from "../../img/gun_minigun.png";
 import melee_knife from "../../img/melee_knife.png";
 import melee_sword from "../../img/melee_sword.png";
 import melee_sledge from "../../img/melee_sledge.png";
+import { Debris } from "../debris";
+
+import effect_slash from "../../img/effect_slash.png";
 
 abstract class GenericGun implements Gun {
   abstract readonly name: string;
@@ -46,7 +49,7 @@ abstract class GenericGun implements Gun {
 
   width = 4;
 
-  protected bashDamage = 10;
+  protected bashDamage = 1;
   protected bashForce = 0.5;
   protected bashForceKickback?: number;
 
@@ -113,6 +116,14 @@ abstract class GenericGun implements Gun {
           this.dir.multiply(this.bashForceKickback ?? 0.5 * this.bashForce)
         );
         z.takeDamage(this.bashDamage);
+        world.debris.push(
+          new Debris(
+            z.pos.clone(),
+            effect_slash,
+            this.dir.angle() + Math.PI,
+            Vec2.square(this.bashDamage / 2 + 10)
+          )
+        );
         this.meleeSound();
       }
     }
@@ -175,6 +186,8 @@ export class Pistol extends GenericGun {
   readonly bulletDamage = 50;
   readonly bulletSpeed = 3;
   readonly length = 15;
+
+  protected bashForce = 0.6;
 
   color = "black";
   image = gun_pistol;
@@ -309,8 +322,8 @@ export class Knife extends GenericGun {
   readonly bulletDamage = 0;
   readonly bulletSpeed = 0;
   readonly length = 25;
-  protected override bashDamage = 75;
-  protected override bashForce = 0.7;
+  protected override bashDamage = 34;
+  protected override bashForce = 1;
 
   width = 3;
   color = "lightgrey";

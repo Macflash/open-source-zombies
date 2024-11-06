@@ -5,8 +5,9 @@ import { Shotgun } from "./guns/shotgun";
 import { Mouse } from "./input/mouse";
 import { Player } from "./player";
 import { Positionable, Vec2 } from "./physics/vec2";
-import { Corpse, Zombie } from "./zombie";
+import { Zombie } from "./zombie";
 import { intersectRect } from "./physics/rect";
+import { Debris } from "./debris";
 
 export interface Entity extends Positionable {
   size: Vec2;
@@ -35,13 +36,14 @@ export class World {
   public secondaryGun: Gun = new Knife();
 
   public zombies: Zombie[] = [];
-  public corpses: Corpse[] = [];
+  public debris: Debris[] = [];
   public buildings: Building[] = [];
   public drops: GunDrop[] = [];
 
   public renderer: () => void = () => {};
 
   doStep() {
+    this.debris = this.debris.slice(-30);
     this.player.doStep(this);
     this.playerBullets = this.playerBullets.filter((b) => b.doStep(this));
     this.playerBullets.push(...(this.activeGun.doStep(this) || []));

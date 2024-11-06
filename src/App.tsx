@@ -45,6 +45,7 @@ function App() {
       }}
     >
       <div style={{ fontSize: "3rem", fontFamily: "fantasy" }}>OSZ</div>
+      <div>Score: {world.playerScore}</div>
 
       <div
         id={GAMEWORLD_ID}
@@ -58,11 +59,11 @@ function App() {
           overflow: "hidden",
         }}
       >
-        {/* Corpses */}
-        {world.corpses.map((z) => (
+        {/* debris */}
+        {world.debris.map((d) => (
           <EntityElement
-            {...z}
-            key={z.key} // dumb you have to do this.
+            {...d}
+            key={d.key} // dumb you have to do this.
           />
         ))}
 
@@ -138,12 +139,13 @@ function App() {
         <EntityElement {...world.player} />
       </div>
       <div>
-        {world.player.health} ❤️ {Math.floor(world.player.sprint)} 🏃
         <div>
-          {world.activeGun.name}:{world.activeGun.clip} / {world.activeGun.ammo}{" "}
+          {world.player.health} ❤️ {Math.floor(world.player.sprint)} 🏃
         </div>
-        ➤{world.activeGun.isReloading ? "Reloading..." : ""}
-        SCORE {world.playerScore}
+        <div>
+          {world.activeGun.name}: {world.activeGun.clip} /{" "}
+          {world.activeGun.ammo} ➤
+        </div>
       </div>
       {game.isGameOver() || !hasStarted ? (
         <button
@@ -184,10 +186,13 @@ function App() {
   );
 }
 
-interface EntityElementProps extends Entity {}
+interface EntityElementProps extends Entity {
+  border?: boolean;
+  angle?: number;
+}
 
 export function EntityElement(props: EntityElementProps) {
-  const { className, color, size, radius, image } = props;
+  const { className, color, size, radius, image, border, angle } = props;
   const offset = offsetRect(props);
   return (
     <div
@@ -198,9 +203,11 @@ export function EntityElement(props: EntityElementProps) {
         width: size.x,
         height: size.y,
         borderRadius: radius ?? 4,
-        backgroundColor: color,
+        backgroundColor: image ? undefined : color,
         top: offset.pos.y, // - 0.5 * size.y,
         left: offset.pos.x, // - 0.5 * size.x,
+        rotate: angle ? `${angle}rad` : undefined,
+        border: border ? `1px solid ${color}` : undefined,
       }}
     >
       {image ? (

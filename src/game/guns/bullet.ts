@@ -2,6 +2,9 @@ import { intersectRect } from "../physics/rect";
 import { Vec2 } from "../physics/vec2";
 import { Entity, World } from "../world";
 
+import effect_splatter from "../../img/effect_splatter.png";
+import { Debris } from "../debris";
+
 let bkey = 0;
 
 export class Bullet implements Entity {
@@ -23,6 +26,14 @@ export class Bullet implements Entity {
     if (hit) {
       hit.takeDamage(this.damage);
       hit.vel = hit.vel.plus(this.vel.multiply((0.5 * this.damage) / hit.mass));
+      world.debris.push(
+        new Debris(
+          hit.pos.clone(),
+          effect_splatter,
+          this.vel.angle(),
+          Vec2.square(40)
+        )
+      );
       return false;
     }
 
