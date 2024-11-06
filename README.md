@@ -16,13 +16,13 @@ R to reload.
 
 Q to switch guns.
 
+## You
+
+The only thing protecting the brains of the world. You might look like bread, but better bread than dead.
+
 ## Zombies
 
 They're green. They want to eat you.
-
-## You
-
-The only thing protecting the brains of the world.
 
 ## Guns
 
